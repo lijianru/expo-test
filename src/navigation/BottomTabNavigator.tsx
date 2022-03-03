@@ -7,16 +7,18 @@ import { Colors } from '../constants/Colors';
 import { useColorScheme } from '../hooks/useColorScheme';
 import { TabOneScreen } from '../screens/TabOneScreen';
 import { TabTwoScreen } from '../screens/TabTwoScreen';
-import { RootTabParamList, RootTabScreenProps } from '../../types';
+import { RootTabParamList } from '../../types';
+import { useNavigation } from '@react-navigation/native';
 
 /**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
+ * 底部tab navigator在显示屏底部显示tab按钮以切换屏幕。
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 export function BottomTabNavigator() {
   const colorScheme = useColorScheme();
+  const navigation = useNavigation();
 
   return (
     <BottomTab.Navigator
@@ -28,7 +30,7 @@ export function BottomTabNavigator() {
       <BottomTab.Screen
         name="TabOne"
         component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
+        options={() => ({
           title: 'Tab One',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (

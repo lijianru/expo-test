@@ -21,14 +21,14 @@ export function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
 }
 
 /**
- * A root stack navigator is often used for displaying modals on top of all other content.
+ * root stack navigator通常用于在所有其他内容之上显示Modal。
  * https://reactnavigation.org/docs/modal
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Root">
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
