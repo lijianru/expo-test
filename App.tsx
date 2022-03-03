@@ -6,7 +6,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './src/hooks/useCachedResources';
 import useColorScheme from './src/hooks/useColorScheme';
 import Navigation from './src/navigation';
-// import StorybookUIRoot from './storybook';
 
 function App() {
   const isLoadingComplete = useCachedResources();
@@ -27,4 +26,3 @@ function App() {
 }
 
 export default App;
-// export default StorybookUIRoot;
