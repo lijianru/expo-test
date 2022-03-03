@@ -3,7 +3,8 @@ import * as React from 'react';
 
 import { RootTabScreenProps } from '../../types';
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   return (
     <Box alignItems="center">
       <Box

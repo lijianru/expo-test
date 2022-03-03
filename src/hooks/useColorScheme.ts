@@ -1,8 +1,8 @@
 import { ColorSchemeName, useColorScheme as _useColorScheme } from 'react-native';
 
-// The useColorScheme value is always either light or dark, but the built-in
-// type suggests that it can be null. This will not happen in practice, so this
-// makes it a bit easier to work with.
-export default function useColorScheme(): NonNullable<ColorSchemeName> {
+// useColorScheme 值始终为浅色或深色，但内置
+// type 表明它可以为空。 这在实践中不会发生，所以这
+// 使它更容易使用。
+export function useColorScheme(): NonNullable<ColorSchemeName> {
   return _useColorScheme() as NonNullable<ColorSchemeName>;
 }

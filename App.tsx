@@ -3,9 +3,9 @@ import { NativeBaseProvider } from 'native-base';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import useCachedResources from './src/hooks/useCachedResources';
-import useColorScheme from './src/hooks/useColorScheme';
-import Navigation from './src/navigation';
+import { useCachedResources } from './src/hooks/useCachedResources';
+import { useColorScheme } from './src/hooks/useColorScheme';
+import { Navigation } from './src/navigation';
 
 function App() {
   const isLoadingComplete = useCachedResources();

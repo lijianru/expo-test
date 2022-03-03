@@ -3,16 +3,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 
-import ModalScreen from '../screens/ModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
+import { ModalScreen } from '../screens/ModalScreen';
+import { NotFoundScreen } from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../../types';
-import LinkingConfiguration from './LinkingConfiguration';
+import { linkingConfiguration } from './LinkingConfiguration';
 import { BottomTabNavigator } from './BottomTabNavigator';
 
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+export function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
-      linking={LinkingConfiguration}
+      linking={linkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
     >
       <RootNavigator />
