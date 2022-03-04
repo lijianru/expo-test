@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   DarkTheme,
   DefaultTheme,
@@ -5,14 +6,13 @@ import {
   Theme as ColorMode,
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
-
-import { NotFoundScreen } from '../screens/NotFoundScreen';
-import { RootStackParamList } from '../../types';
-import { linkingConfiguration } from './LinkingConfiguration';
-import { BottomTabNavigator } from './BottomTabNavigator';
 import { useTheme } from 'native-base';
+
 import { useColorMode } from '../hooks/useColorMode';
+import { NotFoundScreen } from '../screens/NotFoundScreen';
+import { RootStackParamList } from '../types/navigation';
+import { BottomTabNavigator } from './BottomTabNavigator';
+import { linkingConfiguration } from './LinkingConfiguration';
 
 export function Navigation() {
   const { colorMode } = useColorMode();

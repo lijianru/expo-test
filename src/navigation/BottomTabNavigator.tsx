@@ -1,12 +1,12 @@
+import React from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
+import { useTheme } from 'native-base';
 
+import { useColorMode } from '../hooks/useColorMode';
 import { TabOneScreen } from '../screens/TabOneScreen';
 import { TabTwoScreen } from '../screens/TabTwoScreen';
-import { RootTabParamList } from '../../types';
-import { useTheme } from 'native-base';
-import { useColorMode } from '../hooks/useColorMode';
+import { RootTabParamList } from '../types/navigation';
 
 /**
  * 底部tab navigator在显示屏底部显示tab按钮以切换屏幕。

@@ -1,7 +1,7 @@
-import * as WebBrowser from 'expo-web-browser';
-import { View, Text } from 'native-base';
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import * as WebBrowser from 'expo-web-browser';
+import { Text, View } from 'native-base';
 
 import { MonoText } from './StyledText';
 

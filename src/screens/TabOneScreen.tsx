@@ -1,7 +1,7 @@
-import { Box, AspectRatio, Center, Stack, Heading, HStack, Image, Text } from 'native-base';
 import React from 'react';
+import { AspectRatio, Box, Center, Heading, HStack, Image, Stack, Text } from 'native-base';
 
-import { RootTabScreenProps } from '../../types';
+import { RootTabScreenProps } from '../types/navigation';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
