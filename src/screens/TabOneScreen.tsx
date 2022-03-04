@@ -1,5 +1,5 @@
 import { Box, AspectRatio, Center, Stack, Heading, HStack, Image, Text } from 'native-base';
-import * as React from 'react';
+import React from 'react';
 
 import { RootTabScreenProps } from '../../types';
 
