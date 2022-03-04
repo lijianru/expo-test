@@ -12,7 +12,8 @@ import { NotFoundScreen } from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../../types';
 import { linkingConfiguration } from './LinkingConfiguration';
 import { BottomTabNavigator } from './BottomTabNavigator';
-import { useColorMode, useTheme } from 'native-base';
+import { useTheme } from 'native-base';
+import { useColorMode } from '../hooks/useColorMode';
 
 export function Navigation() {
   const { colorMode } = useColorMode();

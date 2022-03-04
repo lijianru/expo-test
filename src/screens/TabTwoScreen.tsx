@@ -1,5 +1,6 @@
-import { Box, useColorMode, useColorModeValue, Text, Button } from 'native-base';
+import { Box, useColorModeValue, Text, Button } from 'native-base';
 import React from 'react';
+import { useColorMode } from '../hooks/useColorMode';
 
 export function TabTwoScreen() {
   const { toggleColorMode, colorMode } = useColorMode();

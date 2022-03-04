@@ -7,7 +7,8 @@ import { TabOneScreen } from '../screens/TabOneScreen';
 import { TabTwoScreen } from '../screens/TabTwoScreen';
 import { RootTabParamList } from '../../types';
 import { useNavigation } from '@react-navigation/native';
-import { useColorMode, useTheme } from 'native-base';
+import { useTheme } from 'native-base';
+import { useColorMode } from '../hooks/useColorMode';
 
 /**
  * 底部tab navigator在显示屏底部显示tab按钮以切换屏幕。
@@ -24,7 +25,7 @@ export function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="TabOne"
       screenOptions={{
-        tabBarActiveTintColor: colors[colorMode!][500],
+        tabBarActiveTintColor: colors[colorMode][500],
       }}
     >
       <BottomTab.Screen
@@ -43,7 +44,7 @@ export function BottomTabNavigator() {
               <FontAwesome
                 name="info-circle"
                 size={25}
-                color={colors[colorMode!][500]}
+                color={colors[colorMode][500]}
                 style={{ marginRight: 15 }}
               />
             </Pressable>
