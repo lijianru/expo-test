@@ -4,11 +4,11 @@ import React from 'react';
 import { Pressable } from 'react-native';
 
 import { Colors } from '../constants/Colors';
-import { useColorScheme } from '../hooks/useColorScheme';
 import { TabOneScreen } from '../screens/TabOneScreen';
 import { TabTwoScreen } from '../screens/TabTwoScreen';
 import { RootTabParamList } from '../../types';
 import { useNavigation } from '@react-navigation/native';
+import { useColorMode } from 'native-base';
 
 /**
  * 底部tab navigator在显示屏底部显示tab按钮以切换屏幕。
@@ -17,14 +17,14 @@ import { useNavigation } from '@react-navigation/native';
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 export function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
+  const { colorMode } = useColorMode();
   const navigation = useNavigation();
 
   return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: Colors[colorMode!].tint,
       }}
     >
       <BottomTab.Screen
@@ -43,7 +43,7 @@ export function BottomTabNavigator() {
               <FontAwesome
                 name="info-circle"
                 size={25}
-                color={Colors[colorScheme].text}
+                color={Colors[colorMode!].text}
                 style={{ marginRight: 15 }}
               />
             </Pressable>
