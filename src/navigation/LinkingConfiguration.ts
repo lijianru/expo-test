@@ -25,9 +25,13 @@ export const linkingConfiguration: LinkingOptions<RootStackParamList> = {
               TabTwoScreen: 'two',
             },
           },
+          TabThree: {
+            screens: {
+              TabThreeScreen: 'two',
+            },
+          },
         },
       },
-      Modal: 'modal',
       NotFound: '*',
     },
   },

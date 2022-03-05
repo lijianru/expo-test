@@ -5,6 +5,7 @@ import { useTheme } from 'native-base';
 
 import { useColorMode } from '../hooks/useColorMode';
 import { TabOneScreen } from '../screens/TabOneScreen';
+import { TabThreeScreen } from '../screens/TabThreeScreen';
 import { TabTwoScreen } from '../screens/TabTwoScreen';
 import { RootTabParamList } from '../types/navigation';
 
@@ -30,7 +31,7 @@ export function BottomTabNavigator() {
         component={TabOneScreen}
         options={() => ({
           title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         })}
       />
       <BottomTab.Screen
@@ -38,7 +39,15 @@ export function BottomTabNavigator() {
         component={TabTwoScreen}
         options={{
           title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="TabThree"
+        component={TabThreeScreen}
+        options={{
+          title: 'Tab Three',
+          tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
         }}
       />
     </BottomTab.Navigator>
