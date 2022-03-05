@@ -3,7 +3,7 @@ import { Box, Button, Text, useColorModeValue } from 'native-base';
 
 import { useColorMode } from '../hooks/useColorMode';
 
-export function TabThreeScreen() {
+export function ResumeScreen() {
   const { toggleColorMode, colorMode } = useColorMode();
 
   return (

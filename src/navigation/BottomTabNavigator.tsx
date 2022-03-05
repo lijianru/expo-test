@@ -4,9 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'native-base';
 
 import { useColorMode } from '../hooks/useColorMode';
-import { TabOneScreen } from '../screens/TabOneScreen';
-import { TabThreeScreen } from '../screens/TabThreeScreen';
-import { TabTwoScreen } from '../screens/TabTwoScreen';
+import { HomeScreen } from '../screens/HomeScreen';
+import { ResumeScreen } from '../screens/ResumeScreen';
+import { SettingScreen } from '../screens/SettingScreen';
 import { RootTabParamList } from '../types/navigation';
 
 /**
@@ -21,30 +21,31 @@ export function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       screenOptions={{
+        tabBarShowLabel: false,
         tabBarActiveTintColor: colors[colorMode][50],
       }}
     >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
+        name="Home"
+        component={HomeScreen}
         options={() => ({
           title: 'Tab One',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="Resume"
+        component={ResumeScreen}
         options={{
           title: 'Tab Two',
           tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabThree"
-        component={TabThreeScreen}
+        name="Setting"
+        component={SettingScreen}
         options={{
           title: 'Tab Three',
           tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,

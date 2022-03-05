@@ -1,10 +1,7 @@
 import React from 'react';
 import { AspectRatio, Box, Center, Heading, HStack, Image, Stack, Text } from 'native-base';
 
-import { RootTabScreenProps } from '../types/navigation';
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export function HomeScreen() {
   return (
     <Box alignItems="center">
       <Box
