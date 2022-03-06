@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // import { useTheme } from 'native-base';
 import { useColorMode } from '../hooks/useColorMode';
+import { CreateResumeScreen } from '../screens/CreateResumeScreen';
 import { NotFoundScreen } from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types/navigation';
 import { BottomTabNavigator } from './BottomTabNavigator';
@@ -64,6 +65,11 @@ function RootNavigator() {
   return (
     <Stack.Navigator initialRouteName="Root">
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="CreateResume"
+        component={CreateResumeScreen}
+        options={{ title: '上传一份新简历', headerBackTitle: '后退' }}
+      />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
