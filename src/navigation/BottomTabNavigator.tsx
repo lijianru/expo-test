@@ -1,7 +1,7 @@
 import React from 'react';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useTheme } from 'native-base';
+import { Pressable, Row, Text, useTheme, View } from 'native-base';
 
 import { useColorMode } from '../hooks/useColorMode';
 import { HomeScreen } from '../screens/HomeScreen';
@@ -24,7 +24,7 @@ export function BottomTabNavigator() {
       initialRouteName="Home"
       screenOptions={{
         tabBarShowLabel: false,
-        tabBarActiveTintColor: colors[colorMode][50],
+        tabBarActiveTintColor: colors[colorMode][900],
       }}
     >
       <BottomTab.Screen
@@ -33,6 +33,16 @@ export function BottomTabNavigator() {
         options={() => ({
           title: 'Tab One',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          headerRight: () => (
+            <Pressable mr={2}>
+              <Row alignItems={'center'}>
+                <Ionicons size={30} style={{ color: colors.light[900] }} name="create" />
+                <View>
+                  <Text color={'light.900'}>创建</Text>
+                </View>
+              </Row>
+            </Pressable>
+          ),
         })}
       />
       <BottomTab.Screen

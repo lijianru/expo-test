@@ -6,8 +6,8 @@ import {
   Theme as ColorMode,
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useTheme } from 'native-base';
 
+// import { useTheme } from 'native-base';
 import { useColorMode } from '../hooks/useColorMode';
 import { NotFoundScreen } from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types/navigation';
@@ -16,7 +16,7 @@ import { linkingConfiguration } from './LinkingConfiguration';
 
 export function Navigation() {
   const { colorMode } = useColorMode();
-  const { colors } = useTheme();
+  // const { colors } = useTheme();
 
   const DarkColorMode: ColorMode = {
     ...DarkTheme,
@@ -24,7 +24,7 @@ export function Navigation() {
       ...DarkTheme.colors,
       // primary: colors.primary[400],
       // background: colors.light[50],
-      card: colors.light[900],
+      // card: colors.light[100],
       // text: colors.light[50],
       // border: colors.light[50],
       // notification: colors.light[50],
@@ -34,10 +34,10 @@ export function Navigation() {
   const LightColorMode: ColorMode = {
     ...DefaultTheme,
     colors: {
-      ...DarkTheme.colors,
+      ...DefaultTheme.colors,
       // primary: colors.primary[400],
       // background: colors.light[200],
-      card: colors.light[700],
+      // card: colors.light[700],
       // text: colors.light[50],
       // border: colors.light[50],
       // notification: colors.light[50],
