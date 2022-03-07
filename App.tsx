@@ -1,6 +1,7 @@
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
+import { SSRProvider } from '@react-aria/ssr';
 import { StatusBar } from 'expo-status-bar';
 import { NativeBaseProvider } from 'native-base';
 
@@ -14,14 +15,16 @@ function App() {
 
   return (
     <Provider store={store}>
-      {!isLoadingComplete ? null : (
-        <NativeBaseProvider theme={customTheme}>
-          <SafeAreaProvider>
-            <Navigation />
-            <StatusBar />
-          </SafeAreaProvider>
-        </NativeBaseProvider>
-      )}
+      <SSRProvider>
+        {!isLoadingComplete ? null : (
+          <NativeBaseProvider theme={customTheme}>
+            <SafeAreaProvider>
+              <Navigation />
+              <StatusBar />
+            </SafeAreaProvider>
+          </NativeBaseProvider>
+        )}
+      </SSRProvider>
     </Provider>
   );
 }

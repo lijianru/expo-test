@@ -2,3 +2,4 @@ node_modules
 .expo
 web-build
 .idea
+yarn-error.log

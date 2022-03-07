@@ -1,7 +1,7 @@
 export type InterviewProcessVO = {
   name: string;
   // userId list
-  owner: string;
+  description: string;
 };
 
 export type InterviewProcessDTO = InterviewProcessVO & {

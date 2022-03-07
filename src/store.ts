@@ -12,6 +12,7 @@ import {
 } from 'redux-persist';
 
 import { counterReducer } from './slice/counterSlice';
+import { interviewProcessReducer } from './slice/interviewProcessSlice';
 
 const persistConfig = {
   key: 'root',
@@ -20,6 +21,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   counter: counterReducer,
+  interviewProcess: interviewProcessReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
