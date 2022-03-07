@@ -1,9 +1,10 @@
 import React from 'react';
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
-import { Pressable, Row, Text, useTheme, View } from 'native-base';
+import { useTheme } from 'native-base';
 
+import { LCreatePressable } from '../components/LCreatePressable';
 import { useColorMode } from '../hooks/useColorMode';
 import { HomeScreen } from '../screens/HomeScreen';
 import { ResumeScreen } from '../screens/ResumeScreen';
@@ -37,14 +38,7 @@ export function BottomTabNavigator() {
           title: 'Tab One',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
-            <Pressable mr={2} onPress={() => navigation.navigate('CreateResume')}>
-              <Row alignItems={'center'}>
-                <Ionicons size={30} style={{ color: colors.light[900] }} name="create" />
-                <View>
-                  <Text color={'light.900'}>创建</Text>
-                </View>
-              </Row>
-            </Pressable>
+            <LCreatePressable onPress={() => navigation.navigate('CreateResume')} />
           ),
         })}
       />

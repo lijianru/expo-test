@@ -1,18 +1,14 @@
 import React from 'react';
-import { Center, ScrollView, useTheme, VStack } from 'native-base';
+import { Center, useTheme, VStack } from 'native-base';
 
 import { Collapse } from '../components/Collapse';
+import { LScrollView } from '../components/LScrollView';
 
 export function HomeScreen() {
   const { colors } = useTheme();
 
   return (
-    <ScrollView
-      _contentContainerStyle={{
-        px: 4,
-        mt: 4,
-      }}
-    >
+    <LScrollView>
       <Collapse title="待处理">
         <VStack flex="1">
           {Object.keys(colors.cyan).map((key, index) => {
@@ -37,6 +33,6 @@ export function HomeScreen() {
           })}
         </VStack>
       </Collapse>
-    </ScrollView>
+    </LScrollView>
   );
 }

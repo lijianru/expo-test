@@ -1,20 +1,22 @@
 import React from 'react';
-import { Box, Button, Text, useColorModeValue } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
+import { Divider, Heading, Pressable, Text } from 'native-base';
 
-import { useColorMode } from '../hooks/useColorMode';
+import { LCard } from '../components/LCard';
+import { LScrollView } from '../components/LScrollView';
 
 export function SettingScreen() {
-  const { toggleColorMode, colorMode } = useColorMode();
+  const navigation = useNavigation();
 
   return (
-    <Box p="4" flex="1" bg={useColorModeValue('warmGray.50', 'coolGray.800')} w="100%">
-      <Text fontSize="lg" display="flex" mb={20}>
-        The active color mode is&nbsp;
-        <Text bold fontSize="18px">
-          {colorMode}
-        </Text>
-      </Text>
-      <Button onPress={toggleColorMode}>Toggle</Button>
-    </Box>
+    <LScrollView>
+      <LCard>
+        <Pressable onPress={() => navigation.navigate('InterviewProcess')}>
+          <Heading>面试流程</Heading>
+          <Divider mt={2} mb={2} />
+          <Text>管理面试流程</Text>
+        </Pressable>
+      </LCard>
+    </LScrollView>
   );
 }
