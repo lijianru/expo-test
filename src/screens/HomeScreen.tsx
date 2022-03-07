@@ -14,7 +14,7 @@ export function HomeScreen() {
           {Object.keys(colors.cyan).map((key, index) => {
             if (index >= 1 && index <= 20)
               return (
-                <Center py="4" bg={`cyan.${key}`}>
+                <Center key={index} py="4" bg={`cyan.${key}`}>
                   {key}
                 </Center>
               );
@@ -26,7 +26,7 @@ export function HomeScreen() {
           {Object.keys(colors.cyan).map((key, index) => {
             if (index >= 1 && index <= 20)
               return (
-                <Center py="4" bg={`cyan.${key}`}>
+                <Center key={index} py="4" bg={`cyan.${key}`}>
                   {key}
                 </Center>
               );
