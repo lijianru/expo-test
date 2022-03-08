@@ -3,8 +3,11 @@ import { Center, useTheme, VStack } from 'native-base';
 
 import { Collapse } from '../components/Collapse';
 import { LScrollView } from '../components/LScrollView';
+import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
 
 export function HomeScreen() {
+  useComponentMountAndUnmount('HomeScreen');
+
   const { colors } = useTheme();
 
   return (

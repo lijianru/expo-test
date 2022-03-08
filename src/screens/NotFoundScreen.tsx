@@ -2,9 +2,12 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from 'native-base';
 
+import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
 import { RootStackScreenProps } from '../types/navigation';
 
 export function NotFoundScreen({ navigation }: RootStackScreenProps<'NotFound'>) {
+  useComponentMountAndUnmount('NotFoundScreen');
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>This screen doesn't exist.</Text>

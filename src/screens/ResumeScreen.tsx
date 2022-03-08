@@ -3,9 +3,12 @@ import { Box, Button, Text, useColorModeValue } from 'native-base';
 
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useAppSelector } from '../hooks/useAppSelector';
+import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
 import { decrement, increment } from '../slice/counterSlice';
 
 export function ResumeScreen() {
+  useComponentMountAndUnmount('ResumeScreen');
+
   const count = useAppSelector(state => state.counter.value);
   const dispatch = useAppDispatch();
 

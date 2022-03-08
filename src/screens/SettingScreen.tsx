@@ -4,8 +4,11 @@ import { Divider, Heading, Pressable, Text } from 'native-base';
 
 import { LCard } from '../components/LCard';
 import { LScrollView } from '../components/LScrollView';
+import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
 
 export function SettingScreen() {
+  useComponentMountAndUnmount('SettingScreen');
+
   const navigation = useNavigation();
 
   return (

@@ -11,9 +11,12 @@ import { LModal } from '../components/LModal';
 import { LScrollView } from '../components/LScrollView';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useAppSelector } from '../hooks/useAppSelector';
+import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
 import { createInterviewProcess, deleteInterviewProcess } from '../slice/interviewProcessSlice';
 
 export function InterviewProcessScreen() {
+  useComponentMountAndUnmount('InterviewProcessScreen');
+
   const initInterviewProcess: InterviewProcessVO = {
     name: '',
     description: '',
