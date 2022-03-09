@@ -14,8 +14,8 @@ import { useAppSelector } from '../hooks/useAppSelector';
 import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
 import { createInterviewProcess, deleteInterviewProcess } from '../slice/interviewProcessSlice';
 
-export function InterviewProcessScreen() {
-  useComponentMountAndUnmount('InterviewProcessScreen');
+export function RoleManagementScreen() {
+  useComponentMountAndUnmount('InterviewProcessManagementScreen');
 
   const initInterviewProcess: InterviewProcessVO = {
     name: '',

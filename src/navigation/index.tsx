@@ -10,7 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import { useTheme } from 'native-base';
 import { useColorMode } from '../hooks/useColorMode';
 import { CreateResumeScreen } from '../screens/CreateResumeScreen';
-import { InterviewProcessScreen } from '../screens/InterviewProcessScreen';
+import { InterviewProcessManagementScreen } from '../screens/InterviewProcessManagementScreen';
 import { NotFoundScreen } from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types/navigation';
 import { BottomTabNavigator } from './BottomTabNavigator';
@@ -72,10 +72,26 @@ function RootNavigator() {
         options={{ title: '上传一份新简历', headerBackTitle: '后退' }}
       />
       <Stack.Screen
-        name="InterviewProcess"
-        component={InterviewProcessScreen}
+        name="InterviewProcessManagement"
+        component={InterviewProcessManagementScreen}
         options={{
-          title: '面试流程',
+          title: '面试流程管理',
+          headerBackTitle: '后退',
+        }}
+      />
+      <Stack.Screen
+        name="RoleManagement"
+        component={InterviewProcessManagementScreen}
+        options={{
+          title: '角色权限管理',
+          headerBackTitle: '后退',
+        }}
+      />
+      <Stack.Screen
+        name="UserManagement"
+        component={InterviewProcessManagementScreen}
+        options={{
+          title: '用户管理',
           headerBackTitle: '后退',
         }}
       />

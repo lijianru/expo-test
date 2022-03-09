@@ -14,8 +14,22 @@ export function SettingScreen() {
   return (
     <LScrollView>
       <LCard>
-        <Pressable onPress={() => navigation.navigate('InterviewProcess')}>
-          <Heading>面试流程</Heading>
+        <Pressable onPress={() => navigation.navigate('RoleManagement')}>
+          <Heading>角色权限管理</Heading>
+          <Divider mt={2} mb={2} />
+          <Text>管理角色的权限</Text>
+        </Pressable>
+      </LCard>
+      <LCard>
+        <Pressable onPress={() => navigation.navigate('UserManagement')}>
+          <Heading>用户管理</Heading>
+          <Divider mt={2} mb={2} />
+          <Text>管理用户</Text>
+        </Pressable>
+      </LCard>
+      <LCard>
+        <Pressable onPress={() => navigation.navigate('InterviewProcessManagement')}>
+          <Heading>面试流程管理</Heading>
           <Divider mt={2} mb={2} />
           <Text>管理面试流程</Text>
         </Pressable>

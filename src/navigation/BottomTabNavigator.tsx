@@ -35,7 +35,7 @@ export function BottomTabNavigator() {
         name="Home"
         component={HomeScreen}
         options={() => ({
-          title: 'Tab One',
+          title: '主页',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <LCreatePressable onPress={() => navigation.navigate('CreateResume')} />
@@ -46,7 +46,7 @@ export function BottomTabNavigator() {
         name="Resume"
         component={ResumeScreen}
         options={{
-          title: 'Tab Two',
+          title: '简历库',
           tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
         }}
       />
@@ -54,7 +54,7 @@ export function BottomTabNavigator() {
         name="Setting"
         component={SettingScreen}
         options={{
-          title: 'Tab Three',
+          title: '设置',
           tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
         }}
       />

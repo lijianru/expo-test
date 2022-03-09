@@ -1,7 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { uuid } from '../utils/uuid';
-import { InterviewProcessDTO, InterviewProcessVO } from './../client/InterviewProcess/types';
+import {
+  InterviewProcessDTO,
+  InterviewProcessVO,
+} from './../client/InterviewProcessManagement/types';
 
 export interface InterviewProcessState {
   interviewProcessList: InterviewProcessDTO[];
