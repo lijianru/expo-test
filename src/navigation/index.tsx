@@ -12,6 +12,8 @@ import { useColorMode } from '../hooks/useColorMode';
 import { CreateResumeScreen } from '../screens/CreateResumeScreen';
 import { InterviewProcessManagementScreen } from '../screens/InterviewProcessManagementScreen';
 import { NotFoundScreen } from '../screens/NotFoundScreen';
+import { RoleManagementScreen } from '../screens/RoleManagementScreen';
+import { UserManagementScreen } from '../screens/UserManagementScreen';
 import { RootStackParamList } from '../types/navigation';
 import { BottomTabNavigator } from './BottomTabNavigator';
 import { linkingConfiguration } from './LinkingConfiguration';
@@ -81,7 +83,7 @@ function RootNavigator() {
       />
       <Stack.Screen
         name="RoleManagement"
-        component={InterviewProcessManagementScreen}
+        component={RoleManagementScreen}
         options={{
           title: '角色权限管理',
           headerBackTitle: '后退',
@@ -89,7 +91,7 @@ function RootNavigator() {
       />
       <Stack.Screen
         name="UserManagement"
-        component={InterviewProcessManagementScreen}
+        component={UserManagementScreen}
         options={{
           title: '用户管理',
           headerBackTitle: '后退',
