@@ -14,11 +14,7 @@
     "build-storybook:web": "expo build:web",
     "build-storybook:ios": "expo build:ios",
     "build-storybook:android": "expo build:android",
-    "prettier": "prettier --config ./.prettierrc.json --write '(src|storybook)/**/*.@(js|ts)?(x)'",
-    "prepare": "husky install"
-  },
-  "lint-staged": {
-    "**/*": "prettier --config ./.prettierrc.json --write --ignore-unknown '(src|storybook)/**/*.@(js|ts)?(x)'"
+    "prettier": "prettier --config ./.prettierrc.json --write '(src|storybook)/**/*.@(js|ts)?(x)'"
   },
   "jest": {
     "preset": "jest-expo"
