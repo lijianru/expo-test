@@ -1,17 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import {
-  Box,
-  FormControl,
-  Heading,
-  Pressable,
-  Row,
-  Select,
-  Stack,
-  Text,
-  useDisclose,
-} from 'native-base';
+import { Box, Heading, Pressable, Row, Text, useDisclose } from 'native-base';
 
 import { UserVO } from '../client/User/types';
 import { LCard } from '../components/LCard';
@@ -19,6 +9,7 @@ import { LCreatePressable } from '../components/LCreatePressable';
 import { LInput } from '../components/LInput';
 import { LModal } from '../components/LModal';
 import { LScrollView } from '../components/LScrollView';
+import { LSelect } from '../components/LSelect';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
@@ -93,16 +84,12 @@ export function UserManagementScreen() {
               type="password"
               onChangeText={password => setUser({ ...user, password })}
             />
-            <FormControl isRequired mb={2}>
-              <Stack>
-                <FormControl.Label>角色</FormControl.Label>
-                <Select onValueChange={role => setUser({ ...user, role })}>
-                  {roleList.map(({ name }) => (
-                    <Select.Item key={name} label={name} value={name} />
-                  ))}
-                </Select>
-              </Stack>
-            </FormControl>
+            <LSelect
+              label="角色"
+              isRequired
+              onValueChange={role => setUser({ ...user, role })}
+              options={roleList.map(({ name }) => name)}
+            />
           </Box>
         </LModal>
       )}

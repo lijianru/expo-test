@@ -1,11 +1,9 @@
 import React from 'react';
 import { FormControl, IInputProps, Input, Stack } from 'native-base';
 
-type Props = {
-  isRequired?: boolean;
-  label: string;
-  helperText?: string;
-} & Pick<IInputProps, 'value' | 'onChange' | 'onChangeText' | 'focusable' | 'type'>;
+import { Form } from '../types/native-base-form';
+
+type Props = Form & Pick<IInputProps, 'value' | 'onChange' | 'onChangeText' | 'focusable' | 'type'>;
 
 export function LInput({ label, helperText, isRequired = false, ...rest }: Props) {
   return (
