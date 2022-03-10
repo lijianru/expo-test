@@ -31,14 +31,20 @@ export function RoleManagementScreen() {
   const { isOpen, onOpen, onClose } = useDisclose(false);
   const [role, setRole] = useState<RoleVO>({
     ...initRole,
-    authorities: { ...initRole.authorities },
   });
   const dispath = useAppDispatch();
   const roleList = useAppSelector(state => state.role.roleList);
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => <LCreatePressable onPress={onOpen} />,
+      headerRight: () => (
+        <LCreatePressable
+          onPress={() => {
+            onOpen();
+            console.log(role);
+          }}
+        />
+      ),
     });
   }, []);
 
@@ -62,57 +68,57 @@ export function RoleManagementScreen() {
           </LCard>
         );
       })}
-      <LModal
-        title="添加新的角色并赋予权限"
-        visiable={isOpen}
-        onClose={() => {
-          onClose();
-          setRole({
-            ...initRole,
-            authorities: { ...initRole.authorities },
-          });
-        }}
-        onSave={() => {
-          if (role.name && role.authorities) {
-            dispath(createRole(role));
+      {isOpen && (
+        <LModal
+          title="添加新的角色并赋予权限"
+          visiable={isOpen}
+          onClose={() => {
             onClose();
             setRole({
               ...initRole,
-              authorities: { ...initRole.authorities },
             });
-          }
-        }}
-      >
-        <Box>
-          <LInput
-            label="角色名"
-            isRequired
-            value={role.name}
-            focusable
-            onChange={e => setRole({ ...role, name: e.nativeEvent.text })}
-          />
-          <Column>
-            <Heading size="sm">权限：</Heading>
-            {Object.keys(AUTHORITY).map(key => (
-              <Row key={key} justifyContent="space-between" alignItems="center">
-                {/* @ts-ignore */}
-                <Text>{AUTHORITY[key]}</Text>
-                <Switch
-                  size="sm"
-                  // @ts-ignore
-                  value={role.authorities[key]}
-                  onValueChange={e =>
-                    setRole({
-                      ...role,
-                      authorities: { ...role.authorities, [key]: e },
-                    })
-                  }
-                />
-              </Row>
-            ))}
-          </Column>
-        </Box>
-      </LModal>
+          }}
+          onSave={() => {
+            if (role.name && role.authorities) {
+              dispath(createRole(role));
+              onClose();
+              setRole({
+                ...initRole,
+              });
+            }
+          }}
+        >
+          <Box>
+            <LInput
+              label="角色名"
+              isRequired
+              value={role.name}
+              focusable
+              onChange={e => setRole({ ...role, name: e.nativeEvent.text })}
+            />
+            <Column>
+              <Heading size="sm">权限：</Heading>
+              {Object.keys(AUTHORITY).map(key => (
+                <Row key={key} justifyContent="space-between" alignItems="center">
+                  {/* @ts-ignore */}
+                  <Text>{AUTHORITY[key]}</Text>
+                  <Switch
+                    size="sm"
+                    // @ts-ignore
+                    value={role.authorities[key]}
+                    onValueChange={e =>
+                      setRole({
+                        ...role,
+                        authorities: { ...role.authorities, [key]: e },
+                      })
+                    }
+                  />
+                </Row>
+              ))}
+            </Column>
+          </Box>
+        </LModal>
+      )}
     </LScrollView>
   );
 }
