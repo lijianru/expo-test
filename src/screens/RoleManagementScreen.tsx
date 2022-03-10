@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Box, Checkbox, Column, Heading, Pressable, Row, Text, useDisclose } from 'native-base';
+import { Box, Column, Heading, Pressable, Row, Switch, Text, useDisclose } from 'native-base';
 
 import { AUTHORITY } from '../client/Role/enums';
 import { RoleVO } from '../client/Role/types';
@@ -21,7 +21,7 @@ export function RoleManagementScreen() {
   const initRole: RoleVO = {
     name: '',
     authorities: {
-      INTERVIEW_PROCESS_MANAGEMENT: false,
+      PROCESS_MANAGEMENT: false,
       ROLE_MANAGEMENT: false,
       USER_MANAGEMENT: false,
     },
@@ -29,7 +29,10 @@ export function RoleManagementScreen() {
 
   const navigation = useNavigation();
   const { isOpen, onOpen, onClose } = useDisclose(false);
-  const [role, setRole] = useState<RoleVO>(initRole);
+  const [role, setRole] = useState<RoleVO>({
+    ...initRole,
+    authorities: { ...initRole.authorities },
+  });
   const dispath = useAppDispatch();
   const roleList = useAppSelector(state => state.role.roleList);
 
@@ -52,7 +55,6 @@ export function RoleManagementScreen() {
             </Row>
             <Column>
               {Object.keys(authorities).map(
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 key => authorities[key] && <Text key={key}>{key}</Text>
               )}
@@ -65,13 +67,19 @@ export function RoleManagementScreen() {
         visiable={isOpen}
         onClose={() => {
           onClose();
-          setRole({ ...initRole });
+          setRole({
+            ...initRole,
+            authorities: { ...initRole.authorities },
+          });
         }}
         onSave={() => {
           if (role.name && role.authorities) {
             dispath(createRole(role));
             onClose();
-            setRole({ ...initRole });
+            setRole({
+              ...initRole,
+              authorities: { ...initRole.authorities },
+            });
           }
         }}
       >
@@ -84,48 +92,24 @@ export function RoleManagementScreen() {
             onChange={e => setRole({ ...role, name: e.nativeEvent.text })}
           />
           <Column>
-            <Checkbox
-              value={AUTHORITY.INTERVIEW_PROCESS_MANAGEMENT}
-              onChange={e => {
-                setRole({
-                  ...role,
-                  authorities: {
-                    ...role.authorities,
-                    [AUTHORITY.INTERVIEW_PROCESS_MANAGEMENT]: e,
-                  },
-                });
-              }}
-            >
-              {AUTHORITY.INTERVIEW_PROCESS_MANAGEMENT}
-            </Checkbox>
-            <Checkbox
-              value={AUTHORITY.ROLE_MANAGEMENT}
-              onChange={e =>
-                setRole({
-                  ...role,
-                  authorities: {
-                    ...role.authorities,
-                    [AUTHORITY.ROLE_MANAGEMENT]: e,
-                  },
-                })
-              }
-            >
-              {AUTHORITY.ROLE_MANAGEMENT}
-            </Checkbox>
-            <Checkbox
-              value={AUTHORITY.USER_MANAGEMENT}
-              onChange={e =>
-                setRole({
-                  ...role,
-                  authorities: {
-                    ...role.authorities,
-                    [AUTHORITY.USER_MANAGEMENT]: e,
-                  },
-                })
-              }
-            >
-              {AUTHORITY.USER_MANAGEMENT}
-            </Checkbox>
+            <Heading size="sm">权限：</Heading>
+            {Object.keys(AUTHORITY).map(key => (
+              <Row key={key} justifyContent="space-between" alignItems="center">
+                {/* @ts-ignore */}
+                <Text>{AUTHORITY[key]}</Text>
+                <Switch
+                  size="sm"
+                  // @ts-ignore
+                  value={role.authorities[key]}
+                  onValueChange={e =>
+                    setRole({
+                      ...role,
+                      authorities: { ...role.authorities, [key]: e },
+                    })
+                  }
+                />
+              </Row>
+            ))}
           </Column>
         </Box>
       </LModal>

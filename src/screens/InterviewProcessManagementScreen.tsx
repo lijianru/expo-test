@@ -3,7 +3,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Box, Heading, Pressable, Row, Text, useDisclose } from 'native-base';
 
-import { InterviewProcessVO } from '../client/InterviewProcessManagement/types';
+import { InterviewProcessVO } from '../client/InterviewProcess/types';
 import { LCard } from '../components/LCard';
 import { LCreatePressable } from '../components/LCreatePressable';
 import { LInput } from '../components/LInput';
