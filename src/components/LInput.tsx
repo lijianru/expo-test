@@ -5,7 +5,7 @@ type Props = {
   isRequired?: boolean;
   label: string;
   helperText?: string;
-} & Pick<IInputProps, 'value' | 'onChange' | 'onChangeText' | 'focusable'>;
+} & Pick<IInputProps, 'value' | 'onChange' | 'onChangeText' | 'focusable' | 'type'>;
 
 export function LInput({ label, helperText, isRequired = false, ...rest }: Props) {
   return (

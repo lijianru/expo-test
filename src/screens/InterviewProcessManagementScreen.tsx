@@ -50,39 +50,41 @@ export function InterviewProcessManagementScreen() {
           </LCard>
         );
       })}
-      <LModal
-        title="添加新的流程"
-        visiable={isOpen}
-        onClose={() => {
-          onClose();
-          setInterviewProcess({ ...initInterviewProcess });
-        }}
-        onSave={() => {
-          if (interviewProcess.name && interviewProcess.description) {
-            dispath(createInterviewProcess(interviewProcess));
+      {isOpen && (
+        <LModal
+          title="添加新的流程"
+          visiable={isOpen}
+          onClose={() => {
             onClose();
             setInterviewProcess({ ...initInterviewProcess });
-          }
-        }}
-      >
-        <Box>
-          <LInput
-            label="步骤名"
-            isRequired
-            value={interviewProcess.name}
-            focusable
-            onChange={e => setInterviewProcess({ ...interviewProcess, name: e.nativeEvent.text })}
-          />
-          <LInput
-            label="描述"
-            isRequired
-            value={interviewProcess.description}
-            onChange={e =>
-              setInterviewProcess({ ...interviewProcess, description: e.nativeEvent.text })
+          }}
+          onSave={() => {
+            if (interviewProcess.name && interviewProcess.description) {
+              dispath(createInterviewProcess(interviewProcess));
+              onClose();
+              setInterviewProcess({ ...initInterviewProcess });
             }
-          />
-        </Box>
-      </LModal>
+          }}
+        >
+          <Box>
+            <LInput
+              label="步骤名"
+              isRequired
+              value={interviewProcess.name}
+              focusable
+              onChange={e => setInterviewProcess({ ...interviewProcess, name: e.nativeEvent.text })}
+            />
+            <LInput
+              label="描述"
+              isRequired
+              value={interviewProcess.description}
+              onChange={e =>
+                setInterviewProcess({ ...interviewProcess, description: e.nativeEvent.text })
+              }
+            />
+          </Box>
+        </LModal>
+      )}
     </LScrollView>
   );
 }

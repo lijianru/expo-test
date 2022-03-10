@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Box, Column, Heading, Pressable, Row, Switch, Text, useDisclose } from 'native-base';
+import {
+  Box,
+  Column,
+  FormControl,
+  Heading,
+  Pressable,
+  Row,
+  Stack,
+  Switch,
+  Text,
+  useDisclose,
+} from 'native-base';
 
 import { AUTHORITY } from '../client/Role/enums';
 import { RoleVO } from '../client/Role/types';
@@ -97,24 +108,28 @@ export function RoleManagementScreen() {
               onChange={e => setRole({ ...role, name: e.nativeEvent.text })}
             />
             <Column>
-              <Heading size="sm">权限：</Heading>
-              {Object.keys(AUTHORITY).map(key => (
-                <Row key={key} justifyContent="space-between" alignItems="center">
-                  {/* @ts-ignore */}
-                  <Text>{AUTHORITY[key]}</Text>
-                  <Switch
-                    size="sm"
-                    // @ts-ignore
-                    value={role.authorities[key]}
-                    onValueChange={e =>
-                      setRole({
-                        ...role,
-                        authorities: { ...role.authorities, [key]: e },
-                      })
-                    }
-                  />
-                </Row>
-              ))}
+              <FormControl isRequired mb={2}>
+                <Stack>
+                  <FormControl.Label>权限</FormControl.Label>
+                  {Object.keys(AUTHORITY).map(key => (
+                    <Row key={key} justifyContent="space-between" alignItems="center">
+                      {/* @ts-ignore */}
+                      <Text>{AUTHORITY[key]}</Text>
+                      <Switch
+                        size="sm"
+                        // @ts-ignore
+                        value={role.authorities[key]}
+                        onValueChange={e =>
+                          setRole({
+                            ...role,
+                            authorities: { ...role.authorities, [key]: e },
+                          })
+                        }
+                      />
+                    </Row>
+                  ))}
+                </Stack>
+              </FormControl>
             </Column>
           </Box>
         </LModal>

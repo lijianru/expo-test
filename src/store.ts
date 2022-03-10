@@ -14,6 +14,7 @@ import {
 import { counterReducer } from './slice/counterSlice';
 import { interviewProcessReducer } from './slice/interviewProcessSlice';
 import { roleReducer } from './slice/roleSlice';
+import { userReducer } from './slice/userSlice';
 
 const persistConfig = {
   key: 'root',
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   counter: counterReducer,
   interviewProcess: interviewProcessReducer,
   role: roleReducer,
+  user: userReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
