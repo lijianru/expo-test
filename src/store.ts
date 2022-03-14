@@ -12,6 +12,7 @@ import {
 } from 'redux-persist';
 
 import { authReducer } from './slice/auth';
+import { interviewActionReducer } from './slice/interviewActionSlice';
 import { interviewProcessReducer } from './slice/interviewProcessSlice';
 import { resumeReducer } from './slice/resumeSlice';
 import { roleReducer } from './slice/roleSlice';
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   resume: resumeReducer,
   auth: authReducer,
+  interviewAction: interviewActionReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

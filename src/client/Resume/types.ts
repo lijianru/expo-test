@@ -17,9 +17,10 @@ export type ResumeDTO = Omit<ResumeVO, 'notRecommendReason'> & {
   interviewTimeline: InterviewTimelineDTO[];
 };
 
-type InterviewTimelineDTO = {
+export type InterviewTimelineDTO = {
   id: string;
-  name: string;
+  resumeId: string;
+  interviewProcessId: string;
   status: RESUME_STATUS;
   comment: string;
   date: string;
