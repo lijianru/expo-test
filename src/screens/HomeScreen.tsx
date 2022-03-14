@@ -5,13 +5,12 @@ import { Collapse } from '../components/Collapse';
 import { LCard } from '../components/LCard';
 import { LScrollView } from '../components/LScrollView';
 import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
-import { useTodoResume, useUploadedByMeResume } from '../services/resume';
+import { useResume } from '../services/resume';
 
 export function HomeScreen() {
   useComponentMountAndUnmount('HomeScreen');
 
-  const todoResumeList = useTodoResume();
-  const uploadedByMeResumeList = useUploadedByMeResume();
+  const { todoResumeList, uploadedByMeResumeList } = useResume();
 
   return (
     <LScrollView>
@@ -34,15 +33,19 @@ export function HomeScreen() {
       </Collapse>
       <Collapse title="我的推荐" defaultOpen={false}>
         <Column>
-          {uploadedByMeResumeList.map(({ id, username, job }) => (
-            <Pressable key={id}>
-              <LCard bg="green.50">
-                <Text>
-                  {username} - {job}
-                </Text>
-              </LCard>
-            </Pressable>
-          ))}
+          {uploadedByMeResumeList.length ? (
+            uploadedByMeResumeList.map(({ id, username, job }) => (
+              <Pressable key={id}>
+                <LCard bg="green.50">
+                  <Text>
+                    {username} - {job}
+                  </Text>
+                </LCard>
+              </Pressable>
+            ))
+          ) : (
+            <Heading>无简历！</Heading>
+          )}
         </Column>
       </Collapse>
     </LScrollView>

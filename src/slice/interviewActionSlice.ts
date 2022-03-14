@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { InterviewTimelineDTO } from './../client/Resume/types';
+import { InterviewActionDTO } from './../client/Resume/types';
 
 export type InterviewActionState = {
-  interviewActionList: InterviewTimelineDTO[];
+  interviewActionList: InterviewActionDTO[];
 };
 
 const initialState: InterviewActionState = {
@@ -14,10 +14,10 @@ export const interviewActionSlice = createSlice({
   name: 'interviewAction',
   initialState,
   reducers: {
-    createInterviewAction: (state, action: PayloadAction<InterviewTimelineDTO>) => {
+    createInterviewAction: (state, action: PayloadAction<InterviewActionDTO>) => {
       state.interviewActionList.push(action.payload);
     },
-    updateInterviewAction: (state, action: PayloadAction<InterviewTimelineDTO>) => {
+    updateInterviewAction: (state, action: PayloadAction<InterviewActionDTO>) => {
       state.interviewActionList = [
         ...state.interviewActionList.map(interviewAction => {
           if (interviewAction.id === action.payload.id) {

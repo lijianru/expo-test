@@ -14,15 +14,20 @@ export type ResumeVO = {
 export type ResumeDTO = Omit<ResumeVO, 'notRecommendReason'> & {
   id: string;
   closedDate?: string;
-  interviewTimeline: InterviewTimelineDTO[];
 };
 
-export type InterviewTimelineDTO = {
-  id: string;
+export type InterviewActionVO = {
   resumeId: string;
   interviewProcessId: string;
   status: RESUME_STATUS;
   comment: string;
   date: string;
-  owner: string;
+  // 记录谁Approved 或 unapproved
+  updatedBy: string;
+  // 由谁处理这一步骤
+  ownerIds: string[];
+};
+
+export type InterviewActionDTO = InterviewActionVO & {
+  id: string;
 };

@@ -7,16 +7,15 @@ import { ResumeVO } from '../client/Resume/types';
 import { LCreatePressable } from '../components/LCreatePressable';
 import { LFormControl } from '../components/LFormControl';
 import { LScrollView } from '../components/LScrollView';
-import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
-import { createResume } from '../slice/resumeSlice';
+import { useResume } from '../services/resume';
 
 export function CreateResumeScreen() {
   useComponentMountAndUnmount('CreateResumeScreen');
 
   const navigation = useNavigation();
-  const dispatch = useAppDispatch();
+  const { createNewResume } = useResume();
   const auth = useAppSelector(state => state.auth.auth);
   const [recommended, setRecommended] = useState(true);
   const [reason, setReason] = useState('');
@@ -33,12 +32,10 @@ export function CreateResumeScreen() {
   const handleClickCreateBtn = () => {
     const completedForm = !Object.values(resume).some(val => !val) && (recommended || !!reason);
     if (completedForm) {
-      dispatch(
-        createResume({
-          ...resume,
-          notRecommendReason: reason,
-        })
-      );
+      createNewResume({
+        ...resume,
+        notRecommendReason: reason,
+      });
 
       navigation.navigate('Root');
     }
