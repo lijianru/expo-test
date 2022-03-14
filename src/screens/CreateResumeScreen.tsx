@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Box, Input, Select } from 'native-base';
+import { Box, Input, Select, Switch } from 'native-base';
 
 import { SEX_TYPES } from '../client/Resume/enum';
 import { ResumeVO } from '../client/Resume/types';
@@ -18,6 +18,10 @@ export function CreateResumeScreen() {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const auth = useAppSelector(state => state.auth.auth);
+  const roleList = useAppSelector(state => state.role.roleList);
+  const userList = useAppSelector(state => state.user.userList);
+  const [recommended, setRecommended] = useState(true);
+  const [reason, setReason] = useState('');
   const [resume, setResume] = useState<ResumeVO>({
     username: '',
     sex: SEX_TYPES.MAN,
@@ -25,36 +29,35 @@ export function CreateResumeScreen() {
     job: '',
     resumesUrl: '',
     assign: '',
-    notRecommendReason: '',
     createdBy: auth.id,
     createdDate: new Date().toISOString(),
   });
 
-  const roleList = useAppSelector(state => state.role.roleList);
-  const userList = useAppSelector(state => state.user.userList);
   const hrList = userList.filter(({ roleId }) => {
     // TODO: 必须默认添加几种角色，并且不能删除
     const hrRole = roleList.find(({ name }) => name === 'HR');
     return roleId === hrRole?.id;
   });
 
+  const handleClickCreateBtn = () => {
+    const completedForm = !Object.values(resume).some(val => !val) && (recommended || !!reason);
+    if (completedForm) {
+      dispatch(
+        createResume({
+          ...resume,
+          notRecommendReason: reason,
+        })
+      );
+
+      navigation.navigate('Root');
+    }
+  };
+
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <LCreatePressable
-          label="保存"
-          onPress={() => {
-            console.log('--------', resume);
-
-            if (!Object.values(resume).some(val => !val)) {
-              dispatch(createResume(resume));
-              console.log('++++++++', resume);
-            }
-          }}
-        />
-      ),
+      headerRight: () => <LCreatePressable label="保存" onPress={handleClickCreateBtn} />,
     });
-  }, []);
+  }, [handleClickCreateBtn]);
 
   return (
     <LScrollView>
@@ -65,6 +68,7 @@ export function CreateResumeScreen() {
             onChangeText={username => setResume({ ...resume, username })}
           />
         </LFormControl>
+
         <LFormControl label="性别" isRequired>
           {/* @ts-ignore */}
           <Select onValueChange={sex => setResume({ ...resume, sex })}>
@@ -72,18 +76,22 @@ export function CreateResumeScreen() {
             <Select.Item label={SEX_TYPES.WOMAN} value={SEX_TYPES.WOMAN} />
           </Select>
         </LFormControl>
+
         <LFormControl label="电话" isRequired>
           <Input value={resume.phone} onChangeText={phone => setResume({ ...resume, phone })} />
         </LFormControl>
+
         <LFormControl label="应聘岗位" isRequired>
           <Input value={resume.job} onChangeText={job => setResume({ ...resume, job })} />
         </LFormControl>
+
         <LFormControl label="简历" isRequired>
           <Input
             value={resume.resumesUrl}
             onChangeText={resumesUrl => setResume({ ...resume, resumesUrl })}
           />
         </LFormControl>
+
         <LFormControl label="跟进HR" isRequired>
           <Select onValueChange={assign => setResume({ ...resume, assign })}>
             {hrList.map(({ id, username }) => (
@@ -91,12 +99,15 @@ export function CreateResumeScreen() {
             ))}
           </Select>
         </LFormControl>
-        <LFormControl label="不推荐原因">
-          <Input
-            value={resume.notRecommendReason}
-            onChangeText={notRecommendReason => setResume({ ...resume, notRecommendReason })}
-          />
+
+        <LFormControl label="是否推荐？">
+          <Switch value={recommended} onValueChange={val => setRecommended(val)} />
         </LFormControl>
+        {!recommended && (
+          <LFormControl label="不推荐原因" isRequired>
+            <Input value={reason} onChangeText={val => setReason(val)} />
+          </LFormControl>
+        )}
       </Box>
     </LScrollView>
   );

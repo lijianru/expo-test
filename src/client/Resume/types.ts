@@ -6,7 +6,7 @@ export type ResumeVO = {
   job: string;
   phone: string;
   resumesUrl: string;
-  notRecommendReason: string;
+  notRecommendReason?: string;
   assign: string;
   createdDate: string;
   createdBy: string;
