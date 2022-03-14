@@ -11,8 +11,10 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 
+import { authReducer } from './slice/auth';
 import { counterReducer } from './slice/counterSlice';
 import { interviewProcessReducer } from './slice/interviewProcessSlice';
+import { resumeReducer } from './slice/resumeSlice';
 import { roleReducer } from './slice/roleSlice';
 import { userReducer } from './slice/userSlice';
 
@@ -26,6 +28,8 @@ const rootReducer = combineReducers({
   interviewProcess: interviewProcessReducer,
   role: roleReducer,
   user: userReducer,
+  resume: resumeReducer,
+  auth: authReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

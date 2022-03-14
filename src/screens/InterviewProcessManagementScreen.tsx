@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Box, Heading, Pressable, Row, Text, useDisclose } from 'native-base';
+import { Box, Heading, Input, Pressable, Row, Text, useDisclose } from 'native-base';
 
 import { InterviewProcessVO } from '../client/InterviewProcess/types';
 import { LCard } from '../components/LCard';
 import { LCreatePressable } from '../components/LCreatePressable';
-import { LInput } from '../components/LInput';
+import { LFormControl } from '../components/LFormControl';
 import { LModal } from '../components/LModal';
 import { LScrollView } from '../components/LScrollView';
 import { useAppDispatch } from '../hooks/useAppDispatch';
@@ -67,21 +67,22 @@ export function InterviewProcessManagementScreen() {
           }}
         >
           <Box>
-            <LInput
-              label="步骤名"
-              isRequired
-              value={interviewProcess.name}
-              focusable
-              onChange={e => setInterviewProcess({ ...interviewProcess, name: e.nativeEvent.text })}
-            />
-            <LInput
-              label="描述"
-              isRequired
-              value={interviewProcess.description}
-              onChange={e =>
-                setInterviewProcess({ ...interviewProcess, description: e.nativeEvent.text })
-              }
-            />
+            <LFormControl label="步骤名" isRequired>
+              <Input
+                value={interviewProcess.name}
+                onChange={e =>
+                  setInterviewProcess({ ...interviewProcess, name: e.nativeEvent.text })
+                }
+              />
+            </LFormControl>
+            <LFormControl label="描述" isRequired>
+              <Input
+                value={interviewProcess.description}
+                onChange={e =>
+                  setInterviewProcess({ ...interviewProcess, description: e.nativeEvent.text })
+                }
+              />
+            </LFormControl>
           </Box>
         </LModal>
       )}

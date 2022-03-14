@@ -4,11 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import {
   Box,
   Column,
-  FormControl,
   Heading,
+  Input,
   Pressable,
   Row,
-  Stack,
   Switch,
   Text,
   useDisclose,
@@ -18,7 +17,7 @@ import { AUTHORITY } from '../client/Role/enums';
 import { RoleVO } from '../client/Role/types';
 import { LCard } from '../components/LCard';
 import { LCreatePressable } from '../components/LCreatePressable';
-import { LInput } from '../components/LInput';
+import { LFormControl } from '../components/LFormControl';
 import { LModal } from '../components/LModal';
 import { LScrollView } from '../components/LScrollView';
 import { useAppDispatch } from '../hooks/useAppDispatch';
@@ -90,7 +89,7 @@ export function RoleManagementScreen() {
             });
           }}
           onSave={() => {
-            if (role.name && role.authorities) {
+            if (role.name && Object.values(role.authorities).some(val => val)) {
               dispath(createRole(role));
               onClose();
               setRole({
@@ -100,37 +99,31 @@ export function RoleManagementScreen() {
           }}
         >
           <Box>
-            <LInput
-              label="角色名"
-              isRequired
-              value={role.name}
-              focusable
-              onChange={e => setRole({ ...role, name: e.nativeEvent.text })}
-            />
-            <Column>
-              <FormControl isRequired mb={2}>
-                <Stack>
-                  <FormControl.Label>权限</FormControl.Label>
-                  {Object.keys(AUTHORITY).map(key => (
-                    <Row key={key} justifyContent="space-between" alignItems="center">
-                      {/* @ts-ignore */}
-                      <Text>{AUTHORITY[key]}</Text>
-                      <Switch
-                        size="sm"
-                        // @ts-ignore
-                        value={role.authorities[key]}
-                        onValueChange={e =>
-                          setRole({
-                            ...role,
-                            authorities: { ...role.authorities, [key]: e },
-                          })
-                        }
-                      />
-                    </Row>
-                  ))}
-                </Stack>
-              </FormControl>
-            </Column>
+            <LFormControl label="角色名" isRequired>
+              <Input
+                value={role.name}
+                onChange={e => setRole({ ...role, name: e.nativeEvent.text })}
+              />
+            </LFormControl>
+            <LFormControl isRequired label="权限">
+              {Object.keys(AUTHORITY).map(key => (
+                <Row key={key} justifyContent="space-between" alignItems="center">
+                  {/* @ts-ignore */}
+                  <Text>{AUTHORITY[key]}</Text>
+                  <Switch
+                    size="sm"
+                    // @ts-ignore
+                    value={role.authorities[key]}
+                    onValueChange={e =>
+                      setRole({
+                        ...role,
+                        authorities: { ...role.authorities, [key]: e },
+                      })
+                    }
+                  />
+                </Row>
+              ))}
+            </LFormControl>
           </Box>
         </LModal>
       )}

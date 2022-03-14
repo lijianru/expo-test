@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Box, Heading, Pressable, Row, Text, useDisclose } from 'native-base';
+import { Box, Heading, Input, Pressable, Row, Select, Text, useDisclose } from 'native-base';
 
 import { UserVO } from '../client/User/types';
 import { LCard } from '../components/LCard';
 import { LCreatePressable } from '../components/LCreatePressable';
-import { LInput } from '../components/LInput';
+import { LFormControl } from '../components/LFormControl';
 import { LModal } from '../components/LModal';
 import { LScrollView } from '../components/LScrollView';
-import { LSelect } from '../components/LSelect';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
@@ -21,7 +20,7 @@ export function UserManagementScreen() {
   const initUser: UserVO = {
     username: '',
     password: '',
-    role: '',
+    roleId: '',
   };
 
   const navigation = useNavigation();
@@ -39,7 +38,9 @@ export function UserManagementScreen() {
 
   return (
     <LScrollView>
-      {userList.map(({ id, username, role }) => {
+      {userList.map(({ id, username, roleId }) => {
+        const roleInfo = roleList.find(({ id }) => id === roleId);
+
         return (
           <LCard key={id}>
             <Row justifyContent="space-between" alignItems="center">
@@ -48,7 +49,7 @@ export function UserManagementScreen() {
                 <AntDesign size={20} name="close" />
               </Pressable>
             </Row>
-            <Text>{role}</Text>
+            <Text>{roleInfo?.name}</Text>
           </LCard>
         );
       })}
@@ -61,7 +62,7 @@ export function UserManagementScreen() {
             setUser({ ...initUser });
           }}
           onSave={() => {
-            if (user.username && user.password && user.role) {
+            if (user.username && user.password && user.roleId) {
               dispatch(createUser(user));
               onClose();
               setUser({ ...initUser });
@@ -69,27 +70,26 @@ export function UserManagementScreen() {
           }}
         >
           <Box>
-            <LInput
-              label="用户名"
-              isRequired
-              value={user.username}
-              focusable
-              onChangeText={username => setUser({ ...user, username })}
-            />
-            <LInput
-              label="密码"
-              isRequired
-              value={user.password}
-              focusable
-              type="password"
-              onChangeText={password => setUser({ ...user, password })}
-            />
-            <LSelect
-              label="角色"
-              isRequired
-              onValueChange={role => setUser({ ...user, role })}
-              options={roleList.map(({ name }) => name)}
-            />
+            <LFormControl label="用户名" isRequired>
+              <Input
+                value={user.username}
+                onChangeText={username => setUser({ ...user, username })}
+              />
+            </LFormControl>
+            <LFormControl label="密码" isRequired>
+              <Input
+                value={user.password}
+                type="password"
+                onChangeText={password => setUser({ ...user, password })}
+              />
+            </LFormControl>
+            <LFormControl label="角色" isRequired>
+              <Select onValueChange={roleId => setUser({ ...user, roleId })}>
+                {roleList.map(({ name, id }) => (
+                  <Select.Item key={name} label={name} value={id} />
+                ))}
+              </Select>
+            </LFormControl>
           </Box>
         </LModal>
       )}

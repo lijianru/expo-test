@@ -1,7 +1,7 @@
 export type UserVO = {
   username: string;
   password: string;
-  role: string;
+  roleId: string;
 };
 
 export type UserDTO = {
