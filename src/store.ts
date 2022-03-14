@@ -12,7 +12,6 @@ import {
 } from 'redux-persist';
 
 import { authReducer } from './slice/auth';
-import { counterReducer } from './slice/counterSlice';
 import { interviewProcessReducer } from './slice/interviewProcessSlice';
 import { resumeReducer } from './slice/resumeSlice';
 import { roleReducer } from './slice/roleSlice';
@@ -24,7 +23,6 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  counter: counterReducer,
   interviewProcess: interviewProcessReducer,
   role: roleReducer,
   user: userReducer,
