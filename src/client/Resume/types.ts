@@ -7,7 +7,6 @@ export type ResumeVO = {
   phone: string;
   resumesUrl: string;
   notRecommendReason?: string;
-  assign: string;
   createdDate: string;
   createdBy: string;
 };
@@ -15,10 +14,11 @@ export type ResumeVO = {
 export type ResumeDTO = Omit<ResumeVO, 'notRecommendReason'> & {
   id: string;
   closedDate?: string;
-  timeline: TimelineDTO[];
+  interviewTimeline: InterviewTimelineDTO[];
 };
 
-type TimelineDTO = {
+type InterviewTimelineDTO = {
+  id: string;
   name: string;
   status: RESUME_STATUS;
   comment: string;

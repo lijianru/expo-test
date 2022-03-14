@@ -19,7 +19,7 @@ export const resumeSlice = createSlice({
       const resume: ResumeDTO = {
         ...action.payload,
         id: uuid(),
-        timeline: [],
+        interviewTimeline: [],
       };
       state.resumeList.push(resume);
     },

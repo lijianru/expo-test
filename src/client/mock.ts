@@ -6,7 +6,7 @@ export const resumes = [
     // 应该在setting页面能够创建对应的岗位
     job: '前端工程师',
     // 简历当前的处在什么阶段？初筛 || 一面 || 二面 .....
-    timeline: [
+    interviewTimeline: [
       {
         name: '初筛',
         status: 'PENDING',
@@ -18,8 +18,6 @@ export const resumes = [
     create_date: 'XXX',
     // 由谁上传
     created_by: 'XXX',
-    // 目前由谁处理简历
-    assign: '面试官A',
     // 关闭时间
     closed_date: '',
   },
@@ -30,7 +28,7 @@ export const resumes = [
     // 应该在setting页面能够创建对应的岗位
     job: '前端工程师',
     // 简历当前的处在什么阶段？初筛 || 一面 || 二面 .....
-    timeline: [
+    interviewTimeline: [
       {
         name: '初筛',
         status: 'PASS',
@@ -42,8 +40,6 @@ export const resumes = [
     create_date: 'XXX',
     // 由谁上传
     created_by: 'XXX',
-    // 目前由谁处理简历
-    assign: '',
     // 关闭时间
     closed_date: 'xxxx',
   },
@@ -54,7 +50,7 @@ export const resumes = [
     // 应该在setting页面能够创建对应的岗位
     job: '前端工程师',
     // 简历当前的处在什么阶段？初筛 || 一面 || 二面 .....
-    timeline: [
+    interviewTimeline: [
       {
         name: '初筛',
         status: 'APPROVED',
@@ -72,8 +68,6 @@ export const resumes = [
     create_date: 'XXX',
     // 由谁上传
     created_by: 'XXX',
-    // 目前由谁处理简历
-    assign: 'HR',
     // 关闭时间
     closed_date: '',
   },
@@ -84,7 +78,7 @@ export const resumes = [
     // 应该在setting页面能够创建对应的岗位
     job: '前端工程师',
     // 简历当前的处在什么阶段？初筛 || 一面 || 二面 .....
-    timeline: [
+    interviewTimeline: [
       {
         name: '初筛',
         status: 'APPROVED',
@@ -102,8 +96,6 @@ export const resumes = [
     create_date: 'XXX',
     // 由谁上传
     created_by: 'XXX',
-    // 目前由谁处理简历
-    assign: '一面面试官',
     // 关闭时间
     closed_date: '',
   },
@@ -114,7 +106,7 @@ export const resumes = [
     // 应该在setting页面能够创建对应的岗位
     job: '前端工程师',
     // 简历当前的处在什么阶段？初筛 || 一面 || 二面 .....
-    timeline: [
+    interviewTimeline: [
       {
         name: '初筛',
         status: 'APPROVED',
@@ -138,8 +130,6 @@ export const resumes = [
     create_date: 'XXX',
     // 由谁上传
     created_by: 'XXX',
-    // 目前由谁处理简历
-    assign: 'HR',
     // 关闭时间
     closed_date: '',
   },
@@ -150,7 +140,7 @@ export const resumes = [
     // 应该在setting页面能够创建对应的岗位
     job: '前端工程师',
     // 简历当前的处在什么阶段？初筛 || 一面 || 二面 .....
-    timeline: [
+    interviewTimeline: [
       {
         name: '初筛',
         status: 'APPROVED',
@@ -168,8 +158,6 @@ export const resumes = [
     create_date: 'XXX',
     // 由谁上传
     created_by: 'XXX',
-    // 目前由谁处理简历
-    assign: '',
     // 关闭时间
     closed_date: '',
   },

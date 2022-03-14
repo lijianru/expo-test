@@ -18,8 +18,6 @@ export function CreateResumeScreen() {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const auth = useAppSelector(state => state.auth.auth);
-  const roleList = useAppSelector(state => state.role.roleList);
-  const userList = useAppSelector(state => state.user.userList);
   const [recommended, setRecommended] = useState(true);
   const [reason, setReason] = useState('');
   const [resume, setResume] = useState<ResumeVO>({
@@ -28,15 +26,8 @@ export function CreateResumeScreen() {
     phone: '',
     job: '',
     resumesUrl: '',
-    assign: '',
     createdBy: auth.id,
     createdDate: new Date().toISOString(),
-  });
-
-  const hrList = userList.filter(({ roleId }) => {
-    // TODO: 必须默认添加几种角色，并且不能删除
-    const hrRole = roleList.find(({ name }) => name === 'HR');
-    return roleId === hrRole?.id;
   });
 
   const handleClickCreateBtn = () => {
@@ -90,14 +81,6 @@ export function CreateResumeScreen() {
             value={resume.resumesUrl}
             onChangeText={resumesUrl => setResume({ ...resume, resumesUrl })}
           />
-        </LFormControl>
-
-        <LFormControl label="跟进HR" isRequired>
-          <Select onValueChange={assign => setResume({ ...resume, assign })}>
-            {hrList.map(({ id, username }) => (
-              <Select.Item key={id} label={username} value={id} />
-            ))}
-          </Select>
         </LFormControl>
 
         <LFormControl label="是否推荐？">
