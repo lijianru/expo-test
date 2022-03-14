@@ -1,40 +1,49 @@
 import React from 'react';
-import { Center, useTheme, VStack } from 'native-base';
+import { Column, Heading, Pressable, Text } from 'native-base';
 
 import { Collapse } from '../components/Collapse';
+import { LCard } from '../components/LCard';
 import { LScrollView } from '../components/LScrollView';
 import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
+import { useTodoResume, useUploadedByMeResume } from '../services/resume';
 
 export function HomeScreen() {
   useComponentMountAndUnmount('HomeScreen');
 
-  const { colors } = useTheme();
+  const todoResumeList = useTodoResume();
+  const uploadedByMeResumeList = useUploadedByMeResume();
 
   return (
     <LScrollView>
       <Collapse title="待处理">
-        <VStack flex="1">
-          {Object.keys(colors.cyan).map((key, index) => {
-            if (index >= 1 && index <= 20)
-              return (
-                <Center key={index} py="4" bg={`cyan.${key}`}>
-                  {key}
-                </Center>
-              );
-          })}
-        </VStack>
+        <Column>
+          {todoResumeList.length ? (
+            todoResumeList.map(({ id, username, job }) => (
+              <Pressable key={id}>
+                <LCard bg="green.50">
+                  <Text>
+                    {username} - {job}
+                  </Text>
+                </LCard>
+              </Pressable>
+            ))
+          ) : (
+            <Heading>无待处理简历！</Heading>
+          )}
+        </Column>
       </Collapse>
       <Collapse title="我的推荐" defaultOpen={false}>
-        <VStack flex="1">
-          {Object.keys(colors.cyan).map((key, index) => {
-            if (index >= 1 && index <= 20)
-              return (
-                <Center key={index} py="4" bg={`cyan.${key}`}>
-                  {key}
-                </Center>
-              );
-          })}
-        </VStack>
+        <Column>
+          {uploadedByMeResumeList.map(({ id, username, job }) => (
+            <Pressable key={id}>
+              <LCard bg="green.50">
+                <Text>
+                  {username} - {job}
+                </Text>
+              </LCard>
+            </Pressable>
+          ))}
+        </Column>
       </Collapse>
     </LScrollView>
   );

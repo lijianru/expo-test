@@ -1,26 +1,41 @@
 import React from 'react';
-import { Box, Button, Text, useColorModeValue } from 'native-base';
+import { AntDesign } from '@expo/vector-icons';
+import { Column, Heading, Pressable, Text } from 'native-base';
 
+import { LCard } from '../components/LCard';
+import { LScrollView } from '../components/LScrollView';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
-import { decrement, increment } from '../slice/counterSlice';
+import { deleteResume } from '../slice/resumeSlice';
 
 export function ResumeScreen() {
   useComponentMountAndUnmount('ResumeScreen');
 
-  const count = useAppSelector(state => state.counter.value);
   const dispatch = useAppDispatch();
 
+  const resumeList = useAppSelector(state => state.resume.resumeList);
+
   return (
-    <Box p="4" flex="1" bg={useColorModeValue('warmGray.50', 'coolGray.800')} w="100%">
-      <Text fontSize="lg" display="flex" mb={20}>
-        <Text bold fontSize="18px">
-          {count}
-        </Text>
-      </Text>
-      <Button onPress={() => dispatch(increment())}>Increment value</Button>
-      <Button onPress={() => dispatch(decrement())}>Decrement value</Button>
-    </Box>
+    <LScrollView>
+      <Column>
+        {resumeList.length ? (
+          resumeList.map(({ id, username, job, phone }) => (
+            <Pressable key={id}>
+              <LCard bg="green.50" flexDirection="row" justifyContent="space-between">
+                <Text>
+                  {username} - {job} - {phone}
+                </Text>
+                <Pressable onPress={() => dispatch(deleteResume(id))}>
+                  <AntDesign size={20} name="close" />
+                </Pressable>
+              </LCard>
+            </Pressable>
+          ))
+        ) : (
+          <Heading>无待处理简历！</Heading>
+        )}
+      </Column>
+    </LScrollView>
   );
 }
