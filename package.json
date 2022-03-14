@@ -8,13 +8,19 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "eslint": "eslint ./src ./storybook",
-    "test": "jest --watchAll",
+    "lint": "eslint ./src ./storybook",
+    "tsc": "tsc",
+    "jest": "jest --watchAll",
+    "test": "yarn lint && yarn tsc",
     "storybook": "start-storybook -p 7007",
     "build-storybook:web": "expo build:web",
     "build-storybook:ios": "expo build:ios",
     "build-storybook:android": "expo build:android",
-    "prettier": "prettier --config ./.prettierrc.json --write '(src|storybook)/**/*.@(js|ts)?(x)'"
+    "prettier": "prettier --config ./.prettierrc.json --write '(src|storybook)/**/*.@(js|ts)?(x)'",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*": "prettier --config ./.prettierrc.json --ignore-unknown --write '(src|storybook)/**/*.@(js|ts)?(x)'"
   },
   "jest": {
     "preset": "jest-expo"
@@ -67,7 +73,7 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^7.0.4",
     "jest-expo": "~43.0.0",
-    "lint-staged": "^12.3.4",
+    "lint-staged": "^12.3.5",
     "prettier": "2.5.1",
     "typescript": "~4.3.5"
   },
