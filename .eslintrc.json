@@ -18,7 +18,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "simple-import-sort"],
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "simple-import-sort"],
   "settings": {
     "react": {
       "version": "detect"
@@ -50,6 +50,8 @@
           ["^.+styles?$"]
         ]
       }
-    ]
+    ],
+    "react-hooks/rules-of-hooks": "error", // 检查 Hook 的规则
+    "react-hooks/exhaustive-deps": "warn" // 检查 effect 的依赖
   }
 }
