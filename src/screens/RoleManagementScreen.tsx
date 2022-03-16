@@ -81,7 +81,7 @@ export function RoleManagementScreen() {
       {isOpen && (
         <LModal
           title="添加新的角色并赋予权限"
-          visiable={isOpen}
+          visible={isOpen}
           onClose={() => {
             onClose();
             setRole({

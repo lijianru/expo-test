@@ -56,7 +56,7 @@ export function UserManagementScreen() {
       {isOpen && (
         <LModal
           title="添加新用户"
-          visiable={isOpen}
+          visible={isOpen}
           onClose={() => {
             onClose();
             setUser({ ...initUser });

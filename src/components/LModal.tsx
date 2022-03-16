@@ -3,15 +3,25 @@ import { Button, Modal } from 'native-base';
 
 type Props = {
   title: string;
-  visiable: boolean;
+  visible: boolean;
+  onCloseText?: string;
   onClose: () => void;
+  onSaveText?: string;
   onSave: () => void;
   children: ReactElement<any>;
 };
 
-export function LModal({ visiable, onClose, title, onSave, children }: Props) {
+export function LModal({
+  visible: visible,
+  onClose,
+  onCloseText = '取消',
+  title,
+  onSave,
+  onSaveText = '保存',
+  children,
+}: Props) {
   return (
-    <Modal isOpen={visiable} onClose={onClose}>
+    <Modal isOpen={visible} onClose={onClose}>
       <Modal.Content maxWidth="400px">
         <Modal.CloseButton />
         <Modal.Header>{title}</Modal.Header>
@@ -19,9 +29,9 @@ export function LModal({ visiable, onClose, title, onSave, children }: Props) {
         <Modal.Footer>
           <Button.Group space={2}>
             <Button variant="ghost" colorScheme="blueGray" onPress={onClose}>
-              取消
+              {onCloseText}
             </Button>
-            <Button onPress={onSave}>保存</Button>
+            <Button onPress={onSave}>{onSaveText}</Button>
           </Button.Group>
         </Modal.Footer>
       </Modal.Content>

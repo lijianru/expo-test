@@ -104,9 +104,21 @@ export function useResume() {
 export function useResumeDetailInfo(resumeId: string) {
   const resumeList = useAppSelector(state => state.resume.resumeList);
   const interviewActionList = useAppSelector(state => state.interviewAction.interviewActionList);
+  const interviewProcessList = useAppSelector(state => state.interviewProcess.interviewProcessList);
 
   const currentResume = resumeList.find(({ id }) => id === resumeId);
-  const currentInterviewActionList = interviewActionList.filter(({ id }) => id === resumeId);
+  const currentInterviewActionList = interviewActionList
+    .filter(({ id }) => id === resumeId)
+    .map(interviewAction => {
+      const interviewProcess = interviewProcessList.find(
+        ({ id }) => id === interviewAction.interviewProcessId
+      );
+
+      return {
+        ...interviewAction,
+        interviewProcessId: interviewProcess?.name,
+      };
+    });
 
   return {
     ...currentResume,

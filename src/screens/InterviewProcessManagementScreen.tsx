@@ -53,7 +53,7 @@ export function InterviewProcessManagementScreen() {
       {isOpen && (
         <LModal
           title="添加新的流程"
-          visiable={isOpen}
+          visible={isOpen}
           onClose={() => {
             onClose();
             setInterviewProcess({ ...initInterviewProcess });
