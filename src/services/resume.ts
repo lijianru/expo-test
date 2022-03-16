@@ -100,3 +100,16 @@ export function useResume() {
     createNewResume,
   };
 }
+
+export function useResumeDetailInfo(resumeId: string) {
+  const resumeList = useAppSelector(state => state.resume.resumeList);
+  const interviewActionList = useAppSelector(state => state.interviewAction.interviewActionList);
+
+  const currentResume = resumeList.find(({ id }) => id === resumeId);
+  const currentInterviewActionList = interviewActionList.filter(({ id }) => id === resumeId);
+
+  return {
+    ...currentResume,
+    interviewActionList: currentInterviewActionList,
+  };
+}

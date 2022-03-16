@@ -12,6 +12,7 @@ import { useColorMode } from '../hooks/useColorMode';
 import { CreateResumeScreen } from '../screens/CreateResumeScreen';
 import { InterviewProcessManagementScreen } from '../screens/InterviewProcessManagementScreen';
 import { NotFoundScreen } from '../screens/NotFoundScreen';
+import { ResumeDetailScreen } from '../screens/ResumeDetailScreen';
 import { RoleManagementScreen } from '../screens/RoleManagementScreen';
 import { UserManagementScreen } from '../screens/UserManagementScreen';
 import { RootStackParamList } from '../types/navigation';
@@ -94,6 +95,14 @@ function RootNavigator() {
         component={UserManagementScreen}
         options={{
           title: '用户管理',
+          headerBackTitle: '后退',
+        }}
+      />
+      <Stack.Screen
+        name="ResumeDetail"
+        component={ResumeDetailScreen}
+        options={{
+          title: '简历详情',
           headerBackTitle: '后退',
         }}
       />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Column, Heading, Pressable, Text } from 'native-base';
 
 import { Collapse } from '../components/Collapse';
@@ -10,6 +11,8 @@ import { useResume } from '../services/resume';
 export function HomeScreen() {
   useComponentMountAndUnmount('HomeScreen');
 
+  const navigation = useNavigation();
+
   const { todoResumeList, uploadedByMeResumeList } = useResume();
 
   return (
@@ -18,7 +21,7 @@ export function HomeScreen() {
         <Column>
           {todoResumeList.length ? (
             todoResumeList.map(({ id, username, job }) => (
-              <Pressable key={id}>
+              <Pressable key={id} onPress={() => navigation.navigate('ResumeDetail', { id })}>
                 <LCard bg="green.50">
                   <Text>
                     {username} - {job}
@@ -35,7 +38,7 @@ export function HomeScreen() {
         <Column>
           {uploadedByMeResumeList.length ? (
             uploadedByMeResumeList.map(({ id, username, job }) => (
-              <Pressable key={id}>
+              <Pressable key={id} onPress={() => navigation.navigate('ResumeDetail', { id })}>
                 <LCard bg="green.50">
                   <Text>
                     {username} - {job}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { Column, Heading, Pressable, Text } from 'native-base';
 
 import { LCard } from '../components/LCard';
@@ -13,6 +14,7 @@ export function ResumeScreen() {
   useComponentMountAndUnmount('ResumeScreen');
 
   const dispatch = useAppDispatch();
+  const navigation = useNavigation();
 
   const resumeList = useAppSelector(state => state.resume.resumeList);
 
@@ -21,7 +23,7 @@ export function ResumeScreen() {
       <Column>
         {resumeList.length ? (
           resumeList.map(({ id, username, job, phone }) => (
-            <Pressable key={id}>
+            <Pressable key={id} onPress={() => navigation.navigate('ResumeDetail', { id })}>
               <LCard bg="green.50" flexDirection="row" justifyContent="space-between">
                 <Text>
                   {username} - {job} - {phone}
