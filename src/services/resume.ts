@@ -1,9 +1,10 @@
 import { RESUME_STATUS } from '../client/Resume/enum';
-import { ResumeDTO, ResumeVO } from '../client/Resume/types';
+import { ResumeDTO } from '../client/Resume/types';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { createInterviewAction, updateInterviewAction } from '../slice/interviewActionSlice';
 import { createResume } from '../slice/resumeSlice';
 import { uuid } from '../utils/uuid';
+import { InterviewActionVO, ResumeFormVO } from './../client/Resume/types';
 import { useAppDispatch } from './../hooks/useAppDispatch';
 
 export function useTodoResume(): ResumeDTO[] {
@@ -18,7 +19,6 @@ export function useTodoResume(): ResumeDTO[] {
   );
   const resumeIds = interviewActionPendingList.map(({ resumeId }) => resumeId);
 
-  // TODO: 使用timeline中状态为pending的action查找简历
   return resumeList.filter(resume => {
     if (resumeIds.includes(resume.id)) {
       return resume;
@@ -43,7 +43,7 @@ export function useResume() {
   const auth = useAppSelector(state => state.auth.auth);
   const interviewProcessList = useAppSelector(state => state.interviewProcess.interviewProcessList);
 
-  const createNewResume = ({ notRecommendReason, ownerIds, ...rest }: ResumeVO) => {
+  const createNewResume = ({ notRecommendReason, ownerIds, ...rest }: ResumeFormVO) => {
     const resume: ResumeDTO = {
       id: uuid(),
       ...rest,
@@ -105,25 +105,30 @@ export function useResumeDetailInfo(resumeId: string) {
   const userList = useAppSelector(state => state.user.userList);
 
   const currentResume = resumeList.find(({ id }) => id === resumeId);
-  const currentInterviewActionList = interviewActionList
+  const currentInterviewActionList: InterviewActionVO[] = interviewActionList
     .filter(interviewAction => interviewAction.resumeId === resumeId)
     .map(interviewAction => {
       const interviewProcess = interviewProcessList.find(
         ({ id }) => id === interviewAction.interviewProcessId
       );
-      const ownerIdsUsername = interviewAction.ownerIds.map(userId => {
-        const currentUser = userList.find(({ id }) => id === userId);
+      const ownerIdsUsername = userList
+        .filter(({ id }) => {
+          return interviewAction.ownerIds.includes(id);
+        })
+        .map(({ username }) => username);
 
-        if (currentUser) return currentUser.username;
-      });
-      const updatedUsername = userList.find(({ id }) => id === interviewAction.updatedBy)?.username;
+      const updatedByUsername = userList.find(
+        ({ id }) => id === interviewAction.updatedBy
+      )?.username;
 
-      return {
+      const newInterviewAction: InterviewActionVO = {
         ...interviewAction,
-        ownerIdMapUsername: [...ownerIdsUsername],
-        updatedUsername,
-        interviewProcessId: interviewProcess?.name,
+        ownerIdsUsername,
+        updatedByUsername,
+        interviewProcessName: interviewProcess?.name,
       };
+
+      return newInterviewAction;
     });
 
   return {

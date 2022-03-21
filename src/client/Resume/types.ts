@@ -1,6 +1,6 @@
 import { RESUME_STATUS, SEX_TYPES } from './enum';
 
-export type ResumeVO = {
+export type ResumeFormVO = {
   username: string;
   sex: keyof typeof SEX_TYPES;
   job: string;
@@ -12,12 +12,14 @@ export type ResumeVO = {
   ownerIds: string[];
 };
 
-export type ResumeDTO = Omit<ResumeVO, 'notRecommendReason' | 'ownerIds'> & {
+export type ResumeDTO = Omit<ResumeFormVO, 'notRecommendReason' | 'ownerIds'> & {
   id: string;
   closedDate?: string;
 };
 
-export type InterviewActionVO = {
+export type ResumeVO = ResumeDTO;
+
+export type InterviewActionFormVO = {
   resumeId: string;
   interviewProcessId: string;
   status: RESUME_STATUS;
@@ -30,6 +32,12 @@ export type InterviewActionVO = {
   ownerIds: string[];
 };
 
-export type InterviewActionDTO = InterviewActionVO & {
+export type InterviewActionDTO = InterviewActionFormVO & {
   id: string;
+};
+
+export type InterviewActionVO = InterviewActionDTO & {
+  updatedByUsername?: string;
+  ownerIdsUsername?: string[];
+  interviewProcessName?: string;
 };

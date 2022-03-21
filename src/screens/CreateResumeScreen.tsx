@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Box, Input, Select, Switch } from 'native-base';
 
 import { SEX_TYPES } from '../client/Resume/enum';
-import { ResumeVO } from '../client/Resume/types';
+import { ResumeFormVO } from '../client/Resume/types';
 import { LCreatePressable } from '../components/LCreatePressable';
 import { LFormControl } from '../components/LFormControl';
 import { LScrollView } from '../components/LScrollView';
@@ -20,7 +20,7 @@ export function CreateResumeScreen() {
   const userList = useAppSelector(state => state.user.userList);
   const [recommended, setRecommended] = useState(true);
   const [reason, setReason] = useState('');
-  const [resume, setResume] = useState<ResumeVO>({
+  const [resume, setResume] = useState<ResumeFormVO>({
     username: '',
     sex: SEX_TYPES.MAN,
     phone: '',

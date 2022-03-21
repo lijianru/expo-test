@@ -80,8 +80,9 @@ export function ResumeDetailScreen() {
               comment,
               createdDate,
               closedDate,
-              updatedBy,
+              updatedByUsername,
               ownerIds,
+              ownerIdsUsername,
             },
             index
           ) => {
@@ -99,9 +100,9 @@ export function ResumeDetailScreen() {
                 <Text p={2}>评价：{comment}</Text>
                 <Text p={2}>创建时间：{createdDate}</Text>
                 {closedDate && <Text p={2}>完成时间：{closedDate}</Text>}
-                <Text p={2}>操作人：{updatedBy}</Text>
+                <Text p={2}>操作人：{updatedByUsername}</Text>
                 {status === RESUME_STATUS.PENDING && (
-                  <Text p={2}>待处理人：{ownerIds.join(', ')}</Text>
+                  <Text p={2}>待处理人：{ownerIdsUsername?.join(', ')}</Text>
                 )}
                 {index === interviewActionList.length - 1 && <Divider m={2} />}
               </Column>
