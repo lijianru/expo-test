@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRoute } from '@react-navigation/native';
 import { Button, Column, Divider, Heading, Input, Row, Text, useDisclose } from 'native-base';
 
@@ -7,7 +7,7 @@ import { LFormControl } from '../components/LFormControl';
 import { LModal } from '../components/LModal';
 import { LScrollView } from '../components/LScrollView';
 import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
-import { useResumeDetailInfo } from '../services/resume';
+import { useApproveResume, useResumeDetailInfo } from '../services/resume';
 import { ResumeDetailScreenRouteProp } from '../types/navigation';
 
 export function ResumeDetailScreen() {
@@ -18,8 +18,28 @@ export function ResumeDetailScreen() {
   const route = useRoute<ResumeDetailScreenRouteProp>();
   const resumeId = route.params.id;
 
+  const [currentInterviewActionId, setCurrentInterviewActionId] = useState('');
+  const [comment, setComment] = useState('');
+
   const { username, job, phone, sex, createdBy, createdDate, closedDate, interviewActionList } =
     useResumeDetailInfo(resumeId);
+
+  const { handleApproveResume, handleUnApproveResume } = useApproveResume(
+    currentInterviewActionId,
+    resumeId,
+    comment
+  );
+
+  const handleOpenModal = (interviewActionId: string) => {
+    setCurrentInterviewActionId(interviewActionId);
+    setComment('');
+    onOpen();
+  };
+
+  const handleCloseModal = () => {
+    setCurrentInterviewActionId('');
+    onClose();
+  };
 
   return (
     <LScrollView>
@@ -37,22 +57,37 @@ export function ResumeDetailScreen() {
       <Heading>简历时间线</Heading>
       <Column ml={4}>
         {interviewActionList.map(
-          ({ id, interviewProcessId, status, comment, date, updatedBy, ownerIds }, index) => {
+          (
+            {
+              id,
+              interviewProcessId,
+              status,
+              comment,
+              createdDate,
+              closedDate,
+              updatedBy,
+              ownerIds,
+            },
+            index
+          ) => {
             return (
               <Column key={id}>
                 <Row justifyContent="space-between" alignItems="center">
                   <Heading size="sm">{interviewProcessId}</Heading>
                   {status === RESUME_STATUS.PENDING && (
-                    <Button size="sm" onPress={onOpen}>
+                    <Button size="sm" onPress={() => handleOpenModal(id)}>
                       更新
                     </Button>
                   )}
                 </Row>
                 <Text p={2}>状态：{status}</Text>
                 <Text p={2}>评价：{comment}</Text>
-                <Text p={2}>操作时间：{date}</Text>
+                <Text p={2}>创建时间：{createdDate}</Text>
+                {closedDate && <Text p={2}>完成时间：{closedDate}</Text>}
                 <Text p={2}>操作人：{updatedBy}</Text>
-                <Text p={2}>待处理人：{ownerIds.join(', ')}</Text>
+                {status === RESUME_STATUS.PENDING && (
+                  <Text p={2}>待处理人：{ownerIds.join(', ')}</Text>
+                )}
                 {index === interviewActionList.length - 1 && <Divider m={2} />}
               </Column>
             );
@@ -62,13 +97,21 @@ export function ResumeDetailScreen() {
       <LModal
         title="更新简历状态"
         visible={isOpen}
-        onClose={onClose}
-        onSave={onClose}
-        onCloseText="未通过"
+        onClose={handleCloseModal}
+        onCancel={() => {
+          if (!comment) return;
+          handleUnApproveResume();
+          handleCloseModal();
+        }}
+        onSave={() => {
+          handleApproveResume();
+          handleCloseModal();
+        }}
+        onCancelText="未通过"
         onSaveText="通过"
       >
         <LFormControl label="评价" helperText="未通过时请填写原因！">
-          <Input />
+          <Input value={comment} onChangeText={val => setComment(val)} />
         </LFormControl>
       </LModal>
     </LScrollView>

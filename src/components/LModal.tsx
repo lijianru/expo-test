@@ -4,8 +4,9 @@ import { Button, Modal } from 'native-base';
 type Props = {
   title: string;
   visible: boolean;
-  onCloseText?: string;
   onClose: () => void;
+  onCancelText?: string;
+  onCancel?: () => void;
   onSaveText?: string;
   onSave: () => void;
   children: ReactElement<any>;
@@ -14,8 +15,9 @@ type Props = {
 export function LModal({
   visible: visible,
   onClose,
-  onCloseText = '取消',
   title,
+  onCancelText = '取消',
+  onCancel = onClose,
   onSave,
   onSaveText = '保存',
   children,
@@ -28,8 +30,8 @@ export function LModal({
         <Modal.Body>{children}</Modal.Body>
         <Modal.Footer>
           <Button.Group space={2}>
-            <Button variant="ghost" colorScheme="blueGray" onPress={onClose}>
-              {onCloseText}
+            <Button variant="ghost" colorScheme="blueGray" onPress={onCancel}>
+              {onCancelText}
             </Button>
             <Button onPress={onSave}>{onSaveText}</Button>
           </Button.Group>

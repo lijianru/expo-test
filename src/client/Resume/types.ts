@@ -21,7 +21,8 @@ export type InterviewActionVO = {
   interviewProcessId: string;
   status: RESUME_STATUS;
   comment: string;
-  date: string;
+  createdDate: string;
+  closedDate?: string;
   // 记录谁Approved 或 unapproved
   updatedBy: string;
   // 由谁处理这一步骤
