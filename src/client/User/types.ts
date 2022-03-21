@@ -1,4 +1,4 @@
-export type UserVO = {
+export type UserFormVO = {
   username: string;
   password: string;
   roleId: string;
@@ -6,4 +6,6 @@ export type UserVO = {
 
 export type UserDTO = {
   id: string;
-} & UserVO;
+} & UserFormVO;
+
+export type UserVO = UserDTO;

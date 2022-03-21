@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { UserDTO } from '../client/User/types';
 import { uuid } from '../utils/uuid';
-import { UserVO } from './../client/User/types';
+import { UserFormVO } from './../client/User/types';
 
 export type UserState = {
   userList: UserDTO[];
@@ -16,7 +16,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: initState,
   reducers: {
-    createUser: (state, action: PayloadAction<UserVO>) => {
+    createUser: (state, action: PayloadAction<UserFormVO>) => {
       state.userList.push({
         ...action.payload,
         id: uuid(),

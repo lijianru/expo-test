@@ -14,7 +14,7 @@ import {
 } from 'native-base';
 
 import { AUTHORITY } from '../client/Role/enums';
-import { RoleVO } from '../client/Role/types';
+import { RoleFormVO } from '../client/Role/types';
 import { LCard } from '../components/LCard';
 import { LCreatePressable } from '../components/LCreatePressable';
 import { LFormControl } from '../components/LFormControl';
@@ -28,7 +28,7 @@ import { createRole, deleteRole } from '../slice/roleSlice';
 export function RoleManagementScreen() {
   useComponentMountAndUnmount('InterviewProcessManagementScreen');
 
-  const initRole: RoleVO = {
+  const initRole: RoleFormVO = {
     name: '',
     authorities: {
       PROCESS_MANAGEMENT: false,
@@ -39,10 +39,10 @@ export function RoleManagementScreen() {
 
   const navigation = useNavigation();
   const { isOpen, onOpen, onClose } = useDisclose(false);
-  const [role, setRole] = useState<RoleVO>({
+  const [role, setRole] = useState<RoleFormVO>({
     ...initRole,
   });
-  const dispath = useAppDispatch();
+  const dispatch = useAppDispatch();
   const roleList = useAppSelector(state => state.role.roleList);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export function RoleManagementScreen() {
           <LCard key={id}>
             <Row justifyContent="space-between" alignItems="center">
               <Heading size={'lg'}>{name}</Heading>
-              <Pressable onPress={() => dispath(deleteRole(id))}>
+              <Pressable onPress={() => dispatch(deleteRole(id))}>
                 <AntDesign size={20} name="close" />
               </Pressable>
             </Row>
@@ -90,7 +90,7 @@ export function RoleManagementScreen() {
           }}
           onSave={() => {
             if (role.name && Object.values(role.authorities).some(val => val)) {
-              dispath(createRole(role));
+              dispatch(createRole(role));
               onClose();
               setRole({
                 ...initRole,

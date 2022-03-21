@@ -3,7 +3,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Box, Heading, Input, Pressable, Row, Select, Text, useDisclose } from 'native-base';
 
-import { UserVO } from '../client/User/types';
+import { UserFormVO } from '../client/User/types';
 import { LCard } from '../components/LCard';
 import { LCreatePressable } from '../components/LCreatePressable';
 import { LFormControl } from '../components/LFormControl';
@@ -17,7 +17,7 @@ import { createUser, deleteUser } from '../slice/userSlice';
 export function UserManagementScreen() {
   useComponentMountAndUnmount('UserManagementScreen');
 
-  const initUser: UserVO = {
+  const initUser: UserFormVO = {
     username: '',
     password: '',
     roleId: '',
@@ -25,7 +25,7 @@ export function UserManagementScreen() {
 
   const navigation = useNavigation();
   const { isOpen, onOpen, onClose } = useDisclose(false);
-  const [user, setUser] = useState<UserVO>(initUser);
+  const [user, setUser] = useState<UserFormVO>(initUser);
   const dispatch = useAppDispatch();
   const userList = useAppSelector(state => state.user.userList);
   const roleList = useAppSelector(state => state.role.roleList);
