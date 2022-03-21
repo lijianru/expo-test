@@ -108,9 +108,9 @@ export function useResumeDetailInfo(resumeId: string) {
   const currentInterviewActionList: InterviewActionVO[] = interviewActionList
     .filter(interviewAction => interviewAction.resumeId === resumeId)
     .map(interviewAction => {
-      const interviewProcess = interviewProcessList.find(
+      const interviewProcessName = interviewProcessList.find(
         ({ id }) => id === interviewAction.interviewProcessId
-      );
+      )?.name;
       const ownerIdsUsername = userList
         .filter(({ id }) => {
           return interviewAction.ownerIds.includes(id);
@@ -125,7 +125,7 @@ export function useResumeDetailInfo(resumeId: string) {
         ...interviewAction,
         ownerIdsUsername,
         updatedByUsername,
-        interviewProcessName: interviewProcess?.name,
+        interviewProcessName,
       };
 
       return newInterviewAction;

@@ -75,7 +75,7 @@ export function ResumeDetailScreen() {
           (
             {
               id,
-              interviewProcessId,
+              interviewProcessName,
               status,
               comment,
               createdDate,
@@ -89,7 +89,7 @@ export function ResumeDetailScreen() {
             return (
               <Column key={id}>
                 <Row justifyContent="space-between" alignItems="center">
-                  <Heading size="sm">{interviewProcessId}</Heading>
+                  <Heading size="sm">{interviewProcessName}</Heading>
                   {status === RESUME_STATUS.PENDING && ownerIds.includes(auth.id) && (
                     <Button size="sm" onPress={() => handleOpenModal(id)}>
                       更新
@@ -104,7 +104,7 @@ export function ResumeDetailScreen() {
                 {status === RESUME_STATUS.PENDING && (
                   <Text p={2}>待处理人：{ownerIdsUsername?.join(', ')}</Text>
                 )}
-                {index === interviewActionList.length - 1 && <Divider m={2} />}
+                {index !== interviewActionList.length - 1 && <Divider m={2} />}
               </Column>
             );
           }
