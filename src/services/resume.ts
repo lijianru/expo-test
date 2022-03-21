@@ -42,10 +42,8 @@ export function useResume() {
   const uploadedByMeResumeList = useUploadedByMeResume();
   const auth = useAppSelector(state => state.auth.auth);
   const interviewProcessList = useAppSelector(state => state.interviewProcess.interviewProcessList);
-  const userList = useAppSelector(state => state.user.userList);
-  const luke = userList.find(({ username }) => username === 'Luck')!;
 
-  const createNewResume = ({ notRecommendReason, ...rest }: ResumeVO) => {
+  const createNewResume = ({ notRecommendReason, ownerIds, ...rest }: ResumeVO) => {
     const resume: ResumeDTO = {
       id: uuid(),
       ...rest,
@@ -85,8 +83,7 @@ export function useResume() {
           interviewProcessId: interviewProcessList[0].id,
           createdDate: new Date().toISOString(),
           comment: '',
-          // TODO: 由谁筛选简历
-          ownerIds: [luke.id],
+          ownerIds: [...ownerIds],
           updatedBy: '',
           status: RESUME_STATUS.PENDING,
         })
@@ -104,7 +101,6 @@ export function useResume() {
 export function useResumeDetailInfo(resumeId: string) {
   const resumeList = useAppSelector(state => state.resume.resumeList);
   const interviewActionList = useAppSelector(state => state.interviewAction.interviewActionList);
-  console.log('interviewActionList', interviewActionList);
   const interviewProcessList = useAppSelector(state => state.interviewProcess.interviewProcessList);
   const userList = useAppSelector(state => state.user.userList);
 
@@ -115,15 +111,17 @@ export function useResumeDetailInfo(resumeId: string) {
       const interviewProcess = interviewProcessList.find(
         ({ id }) => id === interviewAction.interviewProcessId
       );
-      const ownerIds = interviewAction.ownerIds.map(userId => {
+      const ownerIdsUsername = interviewAction.ownerIds.map(userId => {
         const currentUser = userList.find(({ id }) => id === userId);
 
         if (currentUser) return currentUser.username;
       });
+      const updatedUsername = userList.find(({ id }) => id === interviewAction.updatedBy)?.username;
 
       return {
         ...interviewAction,
-        ownerIds: [...ownerIds],
+        ownerIdMapUsername: [...ownerIdsUsername],
+        updatedUsername,
         interviewProcessId: interviewProcess?.name,
       };
     });
@@ -134,7 +132,12 @@ export function useResumeDetailInfo(resumeId: string) {
   };
 }
 
-export function useApproveResume(interviewActionId: string, resumeId: string, comment: string) {
+export function useApproveResume(
+  interviewActionId: string,
+  resumeId: string,
+  comment: string,
+  ownerIds: string[]
+) {
   // 根据interviewActionId查找当前轮次的面试记录并更新，然后创建下一轮次的记录
   console.log('interviewActionId', interviewActionId);
   const dispatch = useAppDispatch();
@@ -171,7 +174,7 @@ export function useApproveResume(interviewActionId: string, resumeId: string, co
             interviewProcessId: nextInterviewProcess.id,
             createdDate: new Date().toISOString(),
             comment: '',
-            ownerIds: [],
+            ownerIds: [...ownerIds],
             updatedBy: '',
             status: RESUME_STATUS.PENDING,
           })

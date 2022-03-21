@@ -9,9 +9,10 @@ export type ResumeVO = {
   notRecommendReason?: string;
   createdDate: string;
   createdBy: string;
+  ownerIds: string[];
 };
 
-export type ResumeDTO = Omit<ResumeVO, 'notRecommendReason'> & {
+export type ResumeDTO = Omit<ResumeVO, 'notRecommendReason' | 'ownerIds'> & {
   id: string;
   closedDate?: string;
 };

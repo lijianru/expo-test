@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 import { useRoute } from '@react-navigation/native';
-import { Button, Column, Divider, Heading, Input, Row, Text, useDisclose } from 'native-base';
+import {
+  Button,
+  Column,
+  Divider,
+  Heading,
+  Input,
+  Row,
+  Select,
+  Text,
+  useDisclose,
+} from 'native-base';
 
 import { RESUME_STATUS } from '../client/Resume/enum';
 import { LFormControl } from '../components/LFormControl';
 import { LModal } from '../components/LModal';
 import { LScrollView } from '../components/LScrollView';
+import { useAppSelector } from '../hooks/useAppSelector';
 import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
 import { useApproveResume, useResumeDetailInfo } from '../services/resume';
 import { ResumeDetailScreenRouteProp } from '../types/navigation';
@@ -20,6 +31,9 @@ export function ResumeDetailScreen() {
 
   const [currentInterviewActionId, setCurrentInterviewActionId] = useState('');
   const [comment, setComment] = useState('');
+  const [ownerIds, setOwnerIds] = useState<Array<string>>([]);
+  const userList = useAppSelector(state => state.user.userList);
+  const auth = useAppSelector(state => state.auth.auth);
 
   const { username, job, phone, sex, createdBy, createdDate, closedDate, interviewActionList } =
     useResumeDetailInfo(resumeId);
@@ -27,7 +41,8 @@ export function ResumeDetailScreen() {
   const { handleApproveResume, handleUnApproveResume } = useApproveResume(
     currentInterviewActionId,
     resumeId,
-    comment
+    comment,
+    ownerIds
   );
 
   const handleOpenModal = (interviewActionId: string) => {
@@ -74,7 +89,7 @@ export function ResumeDetailScreen() {
               <Column key={id}>
                 <Row justifyContent="space-between" alignItems="center">
                   <Heading size="sm">{interviewProcessId}</Heading>
-                  {status === RESUME_STATUS.PENDING && (
+                  {status === RESUME_STATUS.PENDING && ownerIds.includes(auth.id) && (
                     <Button size="sm" onPress={() => handleOpenModal(id)}>
                       更新
                     </Button>
@@ -104,12 +119,20 @@ export function ResumeDetailScreen() {
           handleCloseModal();
         }}
         onSave={() => {
+          if (!ownerIds.length) return;
           handleApproveResume();
           handleCloseModal();
         }}
         onCancelText="未通过"
         onSaveText="通过"
       >
+        <LFormControl label="简历将由谁处理？">
+          <Select onValueChange={id => setOwnerIds([id])}>
+            {userList.map(({ id, username }) => (
+              <Select.Item key={id} label={username} value={id} />
+            ))}
+          </Select>
+        </LFormControl>
         <LFormControl label="评价" helperText="未通过时请填写原因！">
           <Input value={comment} onChangeText={val => setComment(val)} />
         </LFormControl>

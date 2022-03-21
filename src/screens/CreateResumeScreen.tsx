@@ -17,6 +17,7 @@ export function CreateResumeScreen() {
   const navigation = useNavigation();
   const { createNewResume } = useResume();
   const auth = useAppSelector(state => state.auth.auth);
+  const userList = useAppSelector(state => state.user.userList);
   const [recommended, setRecommended] = useState(true);
   const [reason, setReason] = useState('');
   const [resume, setResume] = useState<ResumeVO>({
@@ -27,6 +28,7 @@ export function CreateResumeScreen() {
     resumesUrl: '',
     createdBy: auth.id,
     createdDate: new Date().toISOString(),
+    ownerIds: [],
   });
 
   const handleClickCreateBtn = () => {
@@ -83,7 +85,22 @@ export function CreateResumeScreen() {
         <LFormControl label="是否推荐？">
           <Switch value={recommended} onValueChange={val => setRecommended(val)} />
         </LFormControl>
-        {!recommended && (
+        {recommended ? (
+          <LFormControl label="简历将由谁处理？" isRequired>
+            <Select
+              onValueChange={id =>
+                setResume({
+                  ...resume,
+                  ownerIds: [id],
+                })
+              }
+            >
+              {userList.map(({ id, username }) => (
+                <Select.Item key={id} label={username} value={id} />
+              ))}
+            </Select>
+          </LFormControl>
+        ) : (
           <LFormControl label="不推荐原因" isRequired>
             <Input value={reason} onChangeText={val => setReason(val)} />
           </LFormControl>

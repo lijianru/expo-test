@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Button, Modal } from 'native-base';
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
   onCancel?: () => void;
   onSaveText?: string;
   onSave: () => void;
-  children: ReactElement<any>;
+  children: any;
 };
 
 export function LModal({
