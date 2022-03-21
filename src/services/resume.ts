@@ -144,7 +144,6 @@ export function useApproveResume(
   ownerIds: string[]
 ) {
   // 根据interviewActionId查找当前轮次的面试记录并更新，然后创建下一轮次的记录
-  console.log('interviewActionId', interviewActionId);
   const dispatch = useAppDispatch();
 
   const interviewActionList = useAppSelector(state => state.interviewAction.interviewActionList);

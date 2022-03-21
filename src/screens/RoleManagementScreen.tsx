@@ -51,7 +51,6 @@ export function RoleManagementScreen() {
         <LCreatePressable
           onPress={() => {
             onOpen();
-            console.log(role);
           }}
         />
       ),
