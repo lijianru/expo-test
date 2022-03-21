@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { uuid } from '../utils/uuid';
-import { InterviewProcessDTO, InterviewProcessVO } from './../client/InterviewProcess/types';
+import { InterviewProcessDTO, InterviewProcessFormVO } from './../client/InterviewProcess/types';
 
 export interface InterviewProcessState {
   interviewProcessList: InterviewProcessDTO[];
@@ -15,7 +15,7 @@ export const interviewProcessSlice = createSlice({
   name: 'interviewProcess',
   initialState,
   reducers: {
-    createInterviewProcess: (state, action: PayloadAction<InterviewProcessVO>) => {
+    createInterviewProcess: (state, action: PayloadAction<InterviewProcessFormVO>) => {
       const newInterviewProcess: InterviewProcessDTO = {
         ...action.payload,
         id: uuid(),

@@ -1,9 +1,13 @@
-export type InterviewProcessVO = {
+// 表单
+export type InterviewProcessFormVO = {
   name: string;
-  // userId list
   description: string;
 };
 
-export type InterviewProcessDTO = InterviewProcessVO & {
+// 展示
+export type InterviewProcessVO = InterviewProcessFormVO;
+
+// 数据库
+export type InterviewProcessDTO = InterviewProcessFormVO & {
   id: string;
 };

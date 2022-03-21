@@ -3,7 +3,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Box, Heading, Input, Pressable, Row, Text, useDisclose } from 'native-base';
 
-import { InterviewProcessVO } from '../client/InterviewProcess/types';
+import { InterviewProcessFormVO } from '../client/InterviewProcess/types';
 import { LCard } from '../components/LCard';
 import { LCreatePressable } from '../components/LCreatePressable';
 import { LFormControl } from '../components/LFormControl';
@@ -17,7 +17,7 @@ import { createInterviewProcess, deleteInterviewProcess } from '../slice/intervi
 export function InterviewProcessManagementScreen() {
   useComponentMountAndUnmount('InterviewProcessManagementScreen');
 
-  const initInterviewProcess: InterviewProcessVO = {
+  const initInterviewProcess: InterviewProcessFormVO = {
     name: '',
     description: '',
   };
@@ -25,7 +25,7 @@ export function InterviewProcessManagementScreen() {
   const navigation = useNavigation();
   const { isOpen, onOpen, onClose } = useDisclose(false);
   const [interviewProcess, setInterviewProcess] =
-    useState<InterviewProcessVO>(initInterviewProcess);
+    useState<InterviewProcessFormVO>(initInterviewProcess);
   const dispath = useAppDispatch();
   const interviewProcessList = useAppSelector(state => state.interviewProcess.interviewProcessList);
 
