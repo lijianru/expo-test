@@ -1,15 +1,18 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Divider, Heading, Pressable, Text } from 'native-base';
+import { Button, Divider, Heading, Pressable, Text } from 'native-base';
 
 import { LCard } from '../components/LCard';
 import { LScrollView } from '../components/LScrollView';
+import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
+import { logout } from '../slice/auth';
 
 export function SettingScreen() {
   useComponentMountAndUnmount('SettingScreen');
 
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
 
   return (
     <LScrollView>
@@ -34,6 +37,7 @@ export function SettingScreen() {
           <Text>管理面试流程</Text>
         </Pressable>
       </LCard>
+      <Button onPress={() => dispatch(logout())}>登出</Button>
     </LScrollView>
   );
 }

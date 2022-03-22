@@ -22,6 +22,7 @@ export type RootStackParamList = {
   ResumeDetail: {
     id: string;
   };
+  Login: undefined;
   NotFound: undefined;
 };
 
