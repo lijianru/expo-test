@@ -69,6 +69,9 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   const auth = useAppSelector(state => state.auth.auth);
+  const store = useAppSelector(state => state);
+
+  console.log('store', store);
 
   return (
     <Stack.Navigator initialRouteName="Root">

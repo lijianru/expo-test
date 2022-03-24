@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { uuid } from '../utils/uuid';
-import { RoleDTO, RoleFormVO } from './../client/Role/types';
+import { RoleDTO } from './../client/Role/types';
 
 export interface RoleState {
   roleList: RoleDTO[];
@@ -15,13 +14,8 @@ export const roleSlice = createSlice({
   name: 'role',
   initialState,
   reducers: {
-    createRole: (state, action: PayloadAction<RoleFormVO>) => {
-      const newRole: RoleDTO = {
-        ...action.payload,
-        id: uuid(),
-      };
-
-      state.roleList.push(newRole);
+    createRole: (state, action: PayloadAction<RoleDTO>) => {
+      state.roleList.push(action.payload);
     },
     deleteRole: (state, action: PayloadAction<string>) => {
       state.roleList = [...state.roleList.filter(({ id }) => id !== action.payload)];

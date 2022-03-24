@@ -13,17 +13,16 @@ import {
   useDisclose,
 } from 'native-base';
 
-import { AUTHORITY } from '../client/Role/enums';
+import { AUTHORITY } from '../client/Role/constants';
 import { RoleFormVO } from '../client/Role/types';
 import { LCard } from '../components/LCard';
 import { LCreatePressable } from '../components/LCreatePressable';
 import { LFormControl } from '../components/LFormControl';
 import { LModal } from '../components/LModal';
 import { LScrollView } from '../components/LScrollView';
-import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useComponentMountAndUnmount } from '../hooks/useComponentMountAndUnmount';
-import { createRole, deleteRole } from '../slice/roleSlice';
+import { useRole } from '../services/role';
 
 export function RoleManagementScreen() {
   useComponentMountAndUnmount('InterviewProcessManagementScreen');
@@ -42,8 +41,8 @@ export function RoleManagementScreen() {
   const [role, setRole] = useState<RoleFormVO>({
     ...initRole,
   });
-  const dispatch = useAppDispatch();
   const roleList = useAppSelector(state => state.role.roleList);
+  const { handleCreateRole, handleDeleteRole } = useRole();
 
   useEffect(() => {
     navigation.setOptions({
@@ -64,15 +63,14 @@ export function RoleManagementScreen() {
           <LCard key={id}>
             <Row justifyContent="space-between" alignItems="center">
               <Heading size={'lg'}>{name}</Heading>
-              <Pressable onPress={() => dispatch(deleteRole(id))}>
+              <Pressable onPress={() => handleDeleteRole(id)}>
                 <AntDesign size={20} name="close" />
               </Pressable>
             </Row>
             <Column>
-              {Object.keys(authorities).map(
-                // @ts-ignore
-                key => authorities[key] && <Text key={key}>{key}</Text>
-              )}
+              {authorities.map(key => (
+                <Text key={key}>{key}</Text>
+              ))}
             </Column>
           </LCard>
         );
@@ -88,8 +86,8 @@ export function RoleManagementScreen() {
             });
           }}
           onSave={() => {
-            if (role.name && Object.values(role.authorities).some(val => val)) {
-              dispatch(createRole(role));
+            if (role.name) {
+              handleCreateRole(role);
               onClose();
               setRole({
                 ...initRole,

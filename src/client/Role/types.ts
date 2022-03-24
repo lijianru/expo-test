@@ -1,6 +1,4 @@
-import { AUTHORITY } from './enums';
-
-export type Authority = keyof typeof AUTHORITY;
+export type Authority = 'ROLE_MANAGEMENT' | 'USER_MANAGEMENT' | 'PROCESS_MANAGEMENT';
 
 export type RoleFormVO = {
   name: string;
@@ -9,6 +7,7 @@ export type RoleFormVO = {
 
 export type RoleDTO = {
   id: string;
-} & RoleFormVO;
+  authorities: Authority[];
+} & Omit<RoleFormVO, 'authorities'>;
 
 export type RoleVO = RoleDTO;
